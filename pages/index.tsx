@@ -1,10 +1,11 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import IMetadata from "../types";
 
-
-
+import { useState } from "react";
 const Home: NextPage = () => {
+  const [metaData, setMetaData] = useState<IMetadata>({})
   return (
     <div>
       <Head>
