@@ -4,9 +4,13 @@ import Image from "next/image";
 import IMetadata from "../types";
 import FormComponent from "../components/FormComponent";
 import DisplayComponent from "../components/DisplayComponent";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 const Home: NextPage = () => {
   const [metaData, setMetaData] = useState<IMetadata>({})
+  useEffect(() => {
+    console.log(metaData)
+  }, [metaData])
+  
   return (
     <div>
       <Head>
@@ -53,7 +57,7 @@ const Home: NextPage = () => {
         </div>
       </nav>
       <div className="grid grid-cols-6">
-        <aside className="bg-[#303339] col-span-2"><FormComponent /></aside>
+        <aside className="bg-[#303339] col-span-2"><FormComponent metaData={metaData} setMetaData={setMetaData} /></aside>
         <section className="bg-[#202225] col-span-4"><DisplayComponent /></section>
       </div>
     </div>

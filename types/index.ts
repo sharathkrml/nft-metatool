@@ -2,6 +2,7 @@ export default interface IMetadata {
     "name"?: string,
     "description"?: string,
     "external_url"?: string,
+    "background_color"?: string,
     "image"?: string,
     "attributes"?: IAttribute[]
 }
