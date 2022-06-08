@@ -2,7 +2,8 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import IMetadata from "../types";
-
+import FormComponent from "../components/FormComponent";
+import DisplayComponent from "../components/DisplayComponent";
 import { useState } from "react";
 const Home: NextPage = () => {
   const [metaData, setMetaData] = useState<IMetadata>({})
@@ -51,6 +52,10 @@ const Home: NextPage = () => {
           </div>
         </div>
       </nav>
+      <div className="grid grid-cols-6">
+        <aside className="bg-[#303339] col-span-2"><FormComponent /></aside>
+        <section className="bg-[#202225] col-span-4"><DisplayComponent /></section>
+      </div>
     </div>
   );
 };
