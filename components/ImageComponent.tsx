@@ -40,14 +40,14 @@ function ImageComponent(props: InputMetaData) {
 		switch (selectOption) {
 			case 'Upload Image':
 				return (
-					<div>
+					<div className=" flex flex-col items-center">
 						<label htmlFor="uploadImage">Upload Image</label>
 						<input type="file" onChange={(e) => uploadToIPFS(e.target.files)} />
 					</div>
 				);
 			case 'Enter Image Url':
 				return (
-					<div>
+					<div className=" flex flex-col items-center">
 						<label htmlFor="image_url">Enter Image Url</label>
 						<input
 							type="text"
@@ -62,7 +62,7 @@ function ImageComponent(props: InputMetaData) {
 				);
 			case 'Enter IPFS Hash':
 				return (
-					<div>
+					<div className=" flex flex-col items-center">
 						<label htmlFor="ipfs_hash">Enter IPFS Hash</label>
 						<input
 							type="text"
