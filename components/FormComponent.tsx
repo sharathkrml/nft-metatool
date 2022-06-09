@@ -1,10 +1,8 @@
 import { Dispatch, FC, SetStateAction } from 'react';
-import IMetadata from '../types';
-interface IMetaSetter {
-	metaData: IMetadata;
-	setMetaData: Dispatch<SetStateAction<IMetadata>>;
-}
-const FormComponent = (props: IMetaSetter) => {
+import { IMetadata, InputMetaData } from '../types';
+import ImageComponent from './ImageComponent';
+
+const FormComponent = (props: InputMetaData) => {
 	return (
 		<div>
 			<h2 className="text-center text-white">Fill up here 👇</h2>
@@ -29,7 +27,8 @@ const FormComponent = (props: IMetaSetter) => {
 				/>
 				<label htmlFor="background_color">Background Color(HEX):</label>
 				<input
-					onChange={(e) => props.setMetaData((prevState) => ({ ...prevState, background_color: e.target.value }))}
+					onChange={(e) =>
+						props.setMetaData((prevState) => ({ ...prevState, background_color: e.target.value }))}
 					className="text-black"
 					value={props.metaData.background_color || ''}
 					type="text"
@@ -38,6 +37,7 @@ const FormComponent = (props: IMetaSetter) => {
 					placeholder={'#'}
 				/>
 				<br />
+				<ImageComponent metaData={props.metaData} setMetaData={props.setMetaData} />
 			</form>
 		</div>
 	);

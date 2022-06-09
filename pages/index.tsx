@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import IMetadata from "../types";
+import {IMetadata} from "../types";
 import FormComponent from "../components/FormComponent";
 import DisplayComponent from "../components/DisplayComponent";
 import { useState,useEffect } from "react";
