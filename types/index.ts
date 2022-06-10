@@ -17,3 +17,8 @@ interface IAttribute {
     "trait_type"?: string,
     "value"?: string | number
 }
+
+export type PropertiesPreview = {
+    "trait_type": string;
+    "value": string;
+}
