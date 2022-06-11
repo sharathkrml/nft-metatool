@@ -46,3 +46,7 @@ export type BoostProps = {
     value: number;
     max_value?: number;
 }
+export type DateProps = {
+    trait_type: string;
+    value: number;
+}

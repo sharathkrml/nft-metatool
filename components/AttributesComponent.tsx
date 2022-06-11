@@ -6,6 +6,7 @@ import DetailsWrapper from "./DetailsWrapper"
 import StatsWrapper from "./StatsWrapper"
 import LevelWrapper from "./LevelWrapper"
 import BoostsWrapper from './BoostsWrapper'
+import DateWrapper from "./DateWrapper"
 function AttributesComponent() {
   const [propertiesExpand, setPropertiesExpand] = useState<boolean>(false)
   const [statsExpand, setStatsExpand] = useState<boolean>(false)
@@ -47,7 +48,7 @@ function AttributesComponent() {
         setExpanded={setDatesExpand} icon={<CalendarToday />}
         name={"Dates"}
       >
-        <PropertiesWrapper />
+        <DateWrapper />
       </AttributeWrapper>
       {/* Details */}
       <AttributeWrapper expanded={detailExpand}
