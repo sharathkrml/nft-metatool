@@ -5,6 +5,7 @@ import PropertiesWrapper from "./PropertiesWrapper"
 import DetailsWrapper from "./DetailsWrapper"
 import StatsWrapper from "./StatsWrapper"
 import LevelWrapper from "./LevelWrapper"
+import BoostsWrapper from './BoostsWrapper'
 function AttributesComponent() {
   const [propertiesExpand, setPropertiesExpand] = useState<boolean>(false)
   const [statsExpand, setStatsExpand] = useState<boolean>(false)
@@ -39,7 +40,7 @@ function AttributesComponent() {
         setExpanded={setBoostsExpand} icon={<FlashOn />}
         name={"Boosts"}
       >
-        <PropertiesWrapper />
+        <BoostsWrapper />
       </AttributeWrapper>
       {/* Dates */}
       <AttributeWrapper expanded={datesExpand}

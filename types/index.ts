@@ -39,3 +39,10 @@ export type LevelProps = {
     value: number;
     max_value?: number;
 }
+
+export type BoostProps = {
+    display_type: "boost_number" | "boost_percentage";
+    trait_type: string;
+    value: number;
+    max_value?: number;
+}
