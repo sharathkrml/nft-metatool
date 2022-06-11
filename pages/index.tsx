@@ -25,13 +25,15 @@ const Home: NextPage = () => {
 
         </div>
       </nav>
-      {/* <div className="grid bg-[#202225] grid-cols-6 min-h-screen">
-        <aside className="col-span-2"><FormComponent metaData={metaData} setMetaData={setMetaData} /></aside>
-        <section className="col-span-4 text-white"></section>
-      </div> */}
-      <div className="bg-[#202225] min-h-screen">
-        <DisplayComponent />
+      <div className="grid bg-[#202225] grid-cols-2 min-h-screen">
+        <aside className=""><FormComponent metaData={metaData} setMetaData={setMetaData} /></aside>
+        <section className=" text-white">
+
+          <DisplayComponent />
+
+        </section>
       </div>
+
     </div>
   );
 };
