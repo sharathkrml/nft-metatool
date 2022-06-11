@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 
 export interface IMetadata {
     "name"?: string,
@@ -13,7 +13,7 @@ export interface InputMetaData {
     setMetaData: Dispatch<SetStateAction<IMetadata>>;
 }
 interface IAttribute {
-    "display_type"?: "boost_number" | "boost_percentage" | "number",
+    "display_type"?: "boost_number" | "boost_percentage" | "number" | "date",
     "trait_type"?: string,
     "value"?: string | number
 }
@@ -21,4 +21,21 @@ interface IAttribute {
 export type PropertiesPreview = {
     "trait_type": string;
     "value": string;
+}
+export type AttributeWrapperProps = {
+    expanded: boolean;
+    setExpanded: Dispatch<SetStateAction<boolean>>;
+    icon: React.ReactNode;
+    name: "Properties" | "Stats" | "Levels" | "Boosts" | "Dates" | "Details";
+    children: React.ReactNode;
+    last?: boolean
+}
+export type StatsProps = {
+    trait_type: string;
+    value: number;
+}
+export type LevelProps = {
+    trait_type: string;
+    value: number;
+    max_value?: number;
 }

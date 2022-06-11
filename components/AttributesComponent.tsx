@@ -1,20 +1,60 @@
-import { Label, ExpandMore, ExpandLess } from "@mui/icons-material"
-import PropertiesPreview from "./PropertiesPreview"
+import { Label, Equalizer, Stars, FlashOn, CalendarToday, Ballot } from "@mui/icons-material"
+import AttributeWrapper from "./AttributeWrapper"
 import { useState } from "react"
+import PropertiesWrapper from "./PropertiesWrapper"
+import DetailsWrapper from "./DetailsWrapper"
+import StatsWrapper from "./StatsWrapper"
+import LevelWrapper from "./LevelWrapper"
 function AttributesComponent() {
-  const [PropertiesExpand, setPropertiesExpand] = useState<boolean>(false)
+  const [propertiesExpand, setPropertiesExpand] = useState<boolean>(false)
+  const [statsExpand, setStatsExpand] = useState<boolean>(false)
+  const [levelsExpand, setLevelsExpand] = useState<boolean>(false)
+  const [boostsExpand, setBoostsExpand] = useState<boolean>(false)
+  const [datesExpand, setDatesExpand] = useState<boolean>(false)
+  const [detailExpand, setDetailsExpand] = useState<boolean>(false)
   return (
     <div>
-      <div onClick={() => setPropertiesExpand((prev) => (!prev))} className="flex items-center justify-between p-4 border-[1px] border-black bg-[#262B2F] ">
-        <div><Label /><span className='ml-2'>Properties</span></div>
-        {PropertiesExpand ? <ExpandLess /> : <ExpandMore />}
-      </div>
-      {PropertiesExpand && <div className="grid grid-cols-3 gap-1 border-[1px] border-black p-2">
-        <PropertiesPreview trait_type="BASE" value="Starfish" />
-        <PropertiesPreview trait_type="EYES" value="Big" />
-        <PropertiesPreview trait_type="MOUTH" value="Surprised" />
-        <PropertiesPreview trait_type="PERSONALITY" value="SAD" />
-      </div>}
+      <AttributeWrapper expanded={propertiesExpand}
+        setExpanded={setPropertiesExpand} icon={<Label />}
+        name={"Properties"}
+      >
+        <PropertiesWrapper />
+      </AttributeWrapper>
+      {/* stats */}
+      <AttributeWrapper expanded={statsExpand}
+        setExpanded={setStatsExpand} icon={<Equalizer />}
+        name={"Stats"}
+      >
+        <StatsWrapper />
+      </AttributeWrapper>
+      {/* levels */}
+      <AttributeWrapper expanded={levelsExpand}
+        setExpanded={setLevelsExpand} icon={<Stars />}
+        name={"Levels"}
+      >
+        <LevelWrapper />
+      </AttributeWrapper>
+      {/* Boosts */}
+      <AttributeWrapper expanded={boostsExpand}
+        setExpanded={setBoostsExpand} icon={<FlashOn />}
+        name={"Boosts"}
+      >
+        <PropertiesWrapper />
+      </AttributeWrapper>
+      {/* Dates */}
+      <AttributeWrapper expanded={datesExpand}
+        setExpanded={setDatesExpand} icon={<CalendarToday />}
+        name={"Dates"}
+      >
+        <PropertiesWrapper />
+      </AttributeWrapper>
+      {/* Details */}
+      <AttributeWrapper expanded={detailExpand}
+        setExpanded={setDetailsExpand} icon={<Ballot />}
+        name={"Details"} last={true}
+      >
+        <DetailsWrapper />
+      </AttributeWrapper>
     </div>
   )
 }
