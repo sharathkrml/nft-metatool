@@ -29,7 +29,7 @@ const Home: NextPage = () => {
         <aside className=""><FormComponent metaData={metaData} setMetaData={setMetaData} /></aside>
         <section className=" text-white">
 
-          <DisplayComponent />
+          <DisplayComponent metaData={metaData}/>
 
         </section>
       </div>
