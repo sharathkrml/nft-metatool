@@ -1,4 +1,6 @@
 import { OpenInNew, Refresh, Share, MoreVert } from "@mui/icons-material";
+import Tooltip from '@mui/material/Tooltip';
+
 const ICONWRAPPER: string = "p-2 border-[#707A83]"
 function ExternalLinkComponent() {
     return (
@@ -8,8 +10,11 @@ function ExternalLinkComponent() {
                 <div className={`${ICONWRAPPER} border-r-2 `}>
                     <Refresh color="inherit" />
                 </div>
-                <div className={`${ICONWRAPPER} border-r-2 text-white`}>
-                    <OpenInNew color="inherit" />
+                <div className={`${ICONWRAPPER} border-r-2 text-white`}><a target="_blank" href="https://twitter.com/" rel="noopener noreferrer">
+                <Tooltip title="https://twitter.com/">
+                    <OpenInNew className="hover:scale-110" color="inherit" />
+                </Tooltip>
+                </a>
                 </div>
                 <div className={`${ICONWRAPPER} border-r-2 `}>
                     <Share color="inherit" />
