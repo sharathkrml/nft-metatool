@@ -1,6 +1,7 @@
 import React from 'react'
 import { Subject } from "@mui/icons-material"
-function DescriptionComponent() {
+import MarkdownView from 'react-showdown'
+function DescriptionComponent({description}:{description:string}) {
     return (
         <div className=' mt-2'>
             <div className="flex p-4 border-[1px] border-black bg-[#262B2F] rounded-t-md">
@@ -9,7 +10,7 @@ function DescriptionComponent() {
             </div>
             <div className="py-5 px-10 border-[1px] border-black bg-[#262B2F]">
                 <span className='text-slate-400'>Created by <span className='text-blue-400'>Sharath</span></span><br/>
-                <span className='text-sm'>Friendly OpenSea Creature that enjoys long swims in the ocean.</span>
+                <MarkdownView markdown={description?description:"Friendly OpenSea Creature that enjoys long swims in the ocean."}/>
             </div>
         </div>
     )
