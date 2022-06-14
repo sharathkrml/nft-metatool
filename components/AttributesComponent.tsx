@@ -49,7 +49,7 @@ function AttributesComponent({ attributes }: { attributes: Attributes }) {
         setExpanded={setDatesExpand} icon={<CalendarToday />}
         name={"Dates"}
       >
-        <DateWrapper />
+        <DateWrapper dates={attributes.dates}/>
       </AttributeWrapper>
       {/* Details */}
       <AttributeWrapper expanded={detailExpand}
