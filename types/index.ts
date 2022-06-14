@@ -12,7 +12,6 @@ export interface ImageVideo {
     youtube_url?: string
 
 }
-export type Attributes = (Properties | Stats | Level | Boost | Date)[]
 
 export type Properties = {
     trait_type: string;
@@ -47,4 +46,23 @@ export type AttributeWrapperProps = {
     name: "Properties" | "Stats" | "Levels" | "Boosts" | "Dates" | "Details";
     children: React.ReactNode;
     last?: boolean
+}
+
+export type InputMetaData = DisplayMetaData | {
+    setBasics: Dispatch<SetStateAction<Basics | undefined>>
+    setProperties: Dispatch<SetStateAction<Properties[] | undefined>>
+    setStats: Dispatch<SetStateAction<Stats[] | undefined>>
+    setLevels: Dispatch<SetStateAction<Level[] | undefined>>,
+    setBoosts: Dispatch<SetStateAction<Boost[] | undefined>>,
+    setDates: Dispatch<SetStateAction<Date[] | undefined>>,
+}
+export type DisplayMetaData = Attributes & {
+    basics: Basics | undefined,
+}
+export type Attributes = {
+    properties: Properties[] | undefined,
+    stats: Stats[] | undefined;
+    levels: Level[] | undefined,
+    boosts: Boost[] | undefined,
+    dates: Date[] | undefined,
 }

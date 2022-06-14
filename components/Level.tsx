@@ -1,6 +1,6 @@
 import { Line } from 'rc-progress'
-import { LevelProps } from '../types'
-function Level({ trait_type, value, max_value }: LevelProps) {
+import { Level } from '../types'
+function Level({ trait_type, value, max_value }: Level) {
     return (
         <div className='px-2'>
             <div className='flex justify-between py-2'>

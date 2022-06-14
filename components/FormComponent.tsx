@@ -1,6 +1,6 @@
 import { InputMetaData } from "../types";
 
-const FormComponent = ({ metaData, setMetaData }: InputMetaData) => {
+const FormComponent = (props:InputMetaData) => {
   return (
     <div>
       <h1 className="text-center text-[#205ADC] text-2xl mt-5">

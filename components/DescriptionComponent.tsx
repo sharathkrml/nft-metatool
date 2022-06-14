@@ -10,7 +10,7 @@ function DescriptionComponent({description}:{description:string}) {
             </div>
             <div className="py-5 px-10 border-[1px] border-black bg-[#262B2F]">
                 <span className='text-slate-400'>Created by <span className='text-blue-400'>Sharath</span></span><br/>
-                <MarkdownView markdown={description?description:"Friendly OpenSea Creature that enjoys long swims in the ocean."}/>
+                <MarkdownView markdown={description}/>
             </div>
         </div>
     )

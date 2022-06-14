@@ -2,7 +2,7 @@ import { OpenInNew, Refresh, Share, MoreVert } from "@mui/icons-material";
 import Tooltip from '@mui/material/Tooltip';
 
 const ICONWRAPPER: string = "p-2 border-[#707A83]"
-function ExternalLinkComponent({external_url}:{external_url:string}) {
+function ExternalLinkComponent({ external_url }: { external_url: string | undefined }) {
     return (
         <div className="flex items-center text-[#2078E2] justify-between">
             <span>Contract Name</span>
@@ -11,9 +11,9 @@ function ExternalLinkComponent({external_url}:{external_url:string}) {
                     <Refresh color="inherit" />
                 </div>
                 <div className={`${ICONWRAPPER} border-r-2 text-white`}><a target="_blank" href={external_url} rel="noopener noreferrer">
-                <Tooltip title={external_url} placement="top" open={!!external_url}>
-                    <OpenInNew className="hover:scale-110" color="inherit" />
-                </Tooltip>
+                    <Tooltip title={external_url||""} placement="top" open={!!external_url}>
+                        <OpenInNew className="hover:scale-110" color="inherit" />
+                    </Tooltip>
                 </a>
                 </div>
                 <div className={`${ICONWRAPPER} border-r-2 `}>
