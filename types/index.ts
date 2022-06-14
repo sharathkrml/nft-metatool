@@ -48,7 +48,7 @@ export type AttributeWrapperProps = {
     last?: boolean
 }
 
-export type InputMetaData = DisplayMetaData | {
+export type InputMetaData = DisplayMetaData & {
     setBasics: Dispatch<SetStateAction<Basics | undefined>>
     setProperties: Dispatch<SetStateAction<Properties[] | undefined>>
     setStats: Dispatch<SetStateAction<Stats[] | undefined>>

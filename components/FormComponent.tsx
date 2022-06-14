@@ -1,6 +1,6 @@
 import { InputMetaData } from "../types";
 
-const FormComponent = (props:InputMetaData) => {
+const FormComponent = ({basics,setBasics}:InputMetaData) => {
   return (
     <div>
       <h1 className="text-center text-[#205ADC] text-2xl mt-5">
@@ -13,7 +13,7 @@ const FormComponent = (props:InputMetaData) => {
         type="text"
         className="bg-[#202225] border-2 border-[#4A5357] px-2 text-[#EDEDEE] focus:border-[#205ADC] rounded-md focus:outline-none"
         onChange={(e) =>
-          setMetaData((prevMetaData) => ({
+          setBasics((prevMetaData) => ({
             ...prevMetaData,
             name: e.target.value,
           }))
@@ -25,7 +25,7 @@ const FormComponent = (props:InputMetaData) => {
         type="text"
         className="bg-[#202225] border-2 border-[#4A5357] px-2 text-[#EDEDEE] focus:border-[#205ADC] rounded-md focus:outline-none"
         onChange={(e) =>
-          setMetaData((prevMetaData) => ({
+          setBasics((prevMetaData) => ({
             ...prevMetaData,
             external_url: e.target.value,
           }))
@@ -36,7 +36,7 @@ const FormComponent = (props:InputMetaData) => {
       <textarea
         className="bg-[#202225] border-2 border-[#4A5357] px-2 text-[#EDEDEE] focus:border-[#205ADC] rounded-md focus:outline-none"
         onChange={(e) =>
-          setMetaData((prevMetaData) => ({
+          setBasics((prevMetaData) => ({
             ...prevMetaData,
             description: e.target.value,
           }))
