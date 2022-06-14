@@ -7,13 +7,20 @@ import StatsWrapper from "./StatsWrapper"
 import LevelWrapper from "./LevelWrapper"
 import BoostsWrapper from './BoostsWrapper'
 import DateWrapper from "./DateWrapper"
-function AttributesComponent() {
+import { Attributes, Properties, Stats, Level, Boost, Date } from '../types'
+function AttributesComponent({ attributes }: { attributes: Attributes }) {
   const [propertiesExpand, setPropertiesExpand] = useState<boolean>(false)
+  const [properties, setProperties] = useState<Properties[]>()
   const [statsExpand, setStatsExpand] = useState<boolean>(false)
+  const [stats, setStats] = useState<Stats[]>()
   const [levelsExpand, setLevelsExpand] = useState<boolean>(false)
+  const [levels, setLevels] = useState<Level[]>()
   const [boostsExpand, setBoostsExpand] = useState<boolean>(false)
+  const [boosts, setBoosts] = useState<Boost[]>()
   const [datesExpand, setDatesExpand] = useState<boolean>(false)
-  const [detailExpand, setDetailsExpand] = useState<boolean>(false)
+  const [dates, setDates] = useState<Date[]>()
+  const [detailExpand, setDetailsExpand] = useState<boolean>(true)
+
   return (
     <div>
       <AttributeWrapper expanded={propertiesExpand}
