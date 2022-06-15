@@ -50,7 +50,7 @@ export type AttributeWrapperProps = {
 
 export type InputMetaData = DisplayMetaData & {
     setBasics: Dispatch<SetStateAction<Basics | undefined>>
-    setProperties: Dispatch<SetStateAction<Properties[] | undefined>>
+    setProperties: Dispatch<SetStateAction<Properties[] >>
     setStats: Dispatch<SetStateAction<Stats[] | undefined>>
     setLevels: Dispatch<SetStateAction<Level[] | undefined>>,
     setBoosts: Dispatch<SetStateAction<Boost[] | undefined>>,
@@ -60,7 +60,7 @@ export type DisplayMetaData = Attributes & {
     basics: Basics | undefined,
 }
 export type Attributes = {
-    properties: Properties[] | undefined,
+    properties: Properties[],
     stats: Stats[] | undefined;
     levels: Level[] | undefined,
     boosts: Boost[] | undefined,

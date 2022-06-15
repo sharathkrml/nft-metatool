@@ -7,11 +7,26 @@ import DisplayComponent from "../components/DisplayComponent";
 import { useState, useEffect } from "react";
 const Home: NextPage = () => {
   const [basics, setBasics] = useState<Basics>()
-  const [properties, setProperties] = useState<Properties[]>()
+  const [properties, setProperties] = useState<Properties[]>([{
+    "trait_type": "Base",
+    "value": "Starfish"
+  },
+  {
+    "trait_type": "Eyes",
+    "value": "Big"
+  },
+  {
+    "trait_type": "Mouth",
+    "value": "Surprised"
+  }])
   const [stats, setStats] = useState<Stats[]>()
   const [levels, setLevels] = useState<Level[]>()
   const [boosts, setBoosts] = useState<Boost[]>()
   const [dates, setDates] = useState<Date[]>()
+  useEffect(() => {
+    console.log(properties);
+
+  }, [properties])
 
   return (
     <div>

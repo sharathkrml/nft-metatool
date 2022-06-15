@@ -1,6 +1,29 @@
 import { InputMetaData } from "../types";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+const FormComponent = ({
+  basics,
+  setBasics,
+  properties,
+  setProperties,
+}: InputMetaData) => {
 
-const FormComponent = ({basics,setBasics}:InputMetaData) => {
+  const addProperty = () => {
+    setProperties((prev) => ([...prev, {
+      "trait_type": "",
+      "value": ""
+    }]))
+  }
+  const editProperty = (index: number, data: string, value: boolean = false) => {
+    let newProperties = [...properties]
+    value ? newProperties[index].value = data : newProperties[index].trait_type = data
+    setProperties(newProperties)
+  }
+  const deleteProperty = (index: number) => {
+    let newProperties = [...properties]
+    newProperties.splice(index, 1);
+    setProperties(newProperties)
+  }
   return (
     <div>
       <h1 className="text-center text-[#205ADC] text-2xl mt-5">
@@ -18,7 +41,9 @@ const FormComponent = ({basics,setBasics}:InputMetaData) => {
             name: e.target.value,
           }))
         }
-      /><br /><label htmlFor="external_url" className="text-[#205ADC] mr-2">
+      />
+      <br />
+      <label htmlFor="external_url" className="text-[#205ADC] mr-2">
         External URL
       </label>
       <input
@@ -30,7 +55,9 @@ const FormComponent = ({basics,setBasics}:InputMetaData) => {
             external_url: e.target.value,
           }))
         }
-      /><br /><label htmlFor="description" className="text-[#205ADC] mr-2">
+      />
+      <br />
+      <label htmlFor="description" className="text-[#205ADC] mr-2">
         Description
       </label>
       <textarea
@@ -42,6 +69,35 @@ const FormComponent = ({basics,setBasics}:InputMetaData) => {
           }))
         }
       />
+      <div className="w-1/3 flex justify-between">
+        <span className="text-[#205ADC]">Properties</span>
+        <button className="text-white" onClick={addProperty}>
+          <AddCircleOutlineIcon color="inherit" />
+        </button>
+      </div>
+      {properties.map((property, i) => (
+        <div key={i} className="flex justify-around mb-2">
+          <input
+            type="text"
+            name="trait_type"
+            placeholder="trait_type"
+            id="trait_type"
+            value={property.trait_type}
+            onChange={(e) => {
+              editProperty(i, e.target.value)
+            }}
+          />
+          <input type="text" name="value" id="value"
+            value={property.value}
+            onChange={(e) => {
+              editProperty(i, e.target.value, true)
+            }}
+            placeholder="value" />
+          <button className="text-red-500" onClick={() => deleteProperty(i)}>
+            <RemoveCircleIcon color="inherit" />
+          </button>
+        </div>
+      ))}
     </div>
   );
 };
