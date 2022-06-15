@@ -19,7 +19,19 @@ const Home: NextPage = () => {
     "trait_type": "Mouth",
     "value": "Surprised"
   }])
-  const [stats, setStats] = useState<Stats[]>()
+  const [stats, setStats] = useState<Stats[]>([
+    {
+      "display_type": "number",
+      "trait_type": "Generation",
+      "value": 2,
+      max_value: 50
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Level",
+      "value": 10,
+    }
+  ])
   const [levels, setLevels] = useState<Level[]>()
   const [boosts, setBoosts] = useState<Boost[]>()
   const [dates, setDates] = useState<Date[]>()

@@ -21,6 +21,7 @@ export type Stats = {
     display_type: "number";
     trait_type: string;
     value: number;
+    max_value?: number;
 }
 export type Level = {
     trait_type: string;
@@ -50,8 +51,8 @@ export type AttributeWrapperProps = {
 
 export type InputMetaData = DisplayMetaData & {
     setBasics: Dispatch<SetStateAction<Basics | undefined>>
-    setProperties: Dispatch<SetStateAction<Properties[] >>
-    setStats: Dispatch<SetStateAction<Stats[] | undefined>>
+    setProperties: Dispatch<SetStateAction<Properties[]>>
+    setStats: Dispatch<SetStateAction<Stats[]>>
     setLevels: Dispatch<SetStateAction<Level[] | undefined>>,
     setBoosts: Dispatch<SetStateAction<Boost[] | undefined>>,
     setDates: Dispatch<SetStateAction<Date[] | undefined>>,
@@ -61,7 +62,7 @@ export type DisplayMetaData = Attributes & {
 }
 export type Attributes = {
     properties: Properties[],
-    stats: Stats[] | undefined;
+    stats: Stats[];
     levels: Level[] | undefined,
     boosts: Boost[] | undefined,
     dates: Date[] | undefined,
