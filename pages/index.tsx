@@ -6,7 +6,7 @@ import FormComponent from "../components/FormComponent";
 import DisplayComponent from "../components/DisplayComponent";
 import { useState, useEffect } from "react";
 const Home: NextPage = () => {
-  const [basics, setBasics] = useState<Basics>()
+  const [basics, setBasics] = useState<Basics>({})
   const [properties, setProperties] = useState<Properties[]>([{
     "trait_type": "Base",
     "value": "Starfish"
@@ -32,9 +32,38 @@ const Home: NextPage = () => {
       "value": 10,
     }
   ])
-  const [levels, setLevels] = useState<Level[]>()
-  const [boosts, setBoosts] = useState<Boost[]>()
-  const [dates, setDates] = useState<Date[]>()
+  const [levels, setLevels] = useState<Level[]>([
+    {
+      "trait_type": "Level",
+      "value": 5,
+      "max_value": 100
+    },
+    {
+      "trait_type": "Stamina",
+      "value": 1.4
+    }
+  ])
+  const [boosts, setBoosts] = useState<Boost[]>([
+    {
+      "display_type": "boost_number",
+      "trait_type": "Aqua Power",
+      "value": 40
+    },
+    {
+      "display_type": "boost_percentage",
+      "trait_type": "Stamina Increase",
+      "value": 10
+    }
+  ])
+  const [dates, setDates] = useState<Date[]>([{
+    "display_type": "date",
+    "trait_type": "birthday",
+    "value": 1546360800
+  }, {
+    "display_type": "date",
+    "trait_type": "1st anniversary",
+    "value": 1577920800
+  }])
   useEffect(() => {
     console.log(properties);
 
