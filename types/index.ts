@@ -78,3 +78,7 @@ export type LevelsSetter = {
   levels: Level[];
   setLevels: Dispatch<SetStateAction<Level[]>>;
 }
+export type BoostSetter = {
+  boosts: Boost[];
+  setBoosts: Dispatch<SetStateAction<Boost[]>>;
+}
