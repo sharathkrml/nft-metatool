@@ -101,6 +101,8 @@ const FormComponent = ({
       {properties.map((property, i) => (
         <div key={i} className="flex justify-around mb-2">
           <input
+            className="bg-[#202225] border-2 border-[#4A5357] px-2 text-[#EDEDEE] focus:border-[#205ADC] rounded-md focus:outline-none"
+
             type="text"
             name="trait_type"
             placeholder="trait_type"
@@ -112,6 +114,8 @@ const FormComponent = ({
           />
           <input type="text" name="value" id="value"
             value={property.value}
+            className="bg-[#202225] border-2 border-[#4A5357] px-2 text-[#EDEDEE] focus:border-[#205ADC] rounded-md focus:outline-none"
+
             onChange={(e) => {
               editProperty(i, e.target.value, true)
             }}
@@ -131,6 +135,8 @@ const FormComponent = ({
       {stats.map((stat, i) => (
         <div key={i} className="flex mb-2 justify-between">
           <input
+            className="bg-[#202225] border-2 border-[#4A5357] px-2 text-[#EDEDEE] focus:border-[#205ADC] rounded-md focus:outline-none"
+
             type="text"
             name="trait_type"
             placeholder="trait_type"
@@ -141,7 +147,8 @@ const FormComponent = ({
             }}
           />
           <input type="number" name="value" id="value"
-            className="w-20"
+            className="w-20 bg-[#202225] border-2 border-[#4A5357] px-2 text-[#EDEDEE] focus:border-[#205ADC] rounded-md focus:outline-none"
+
             value={stat.value}
             onChange={(e) => {
               editStat(i, e.target.value, "value")
@@ -149,7 +156,7 @@ const FormComponent = ({
             placeholder="value" />
 
           <input type="number" name="value" id="value"
-            className="w-20"
+            className="w-20 bg-[#202225] border-2 border-[#4A5357] px-2 text-[#EDEDEE] focus:border-[#205ADC] rounded-md focus:outline-none"
 
             value={stat.max_value}
             onChange={(e) => {

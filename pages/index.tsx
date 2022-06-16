@@ -65,9 +65,9 @@ const Home: NextPage = () => {
     "value": 1577920800
   }])
   useEffect(() => {
-    console.log(properties);
+    console.log(stats);
 
-  }, [properties])
+  }, [stats])
 
   return (
     <div>
