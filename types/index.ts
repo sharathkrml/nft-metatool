@@ -82,3 +82,7 @@ export type BoostSetter = {
   boosts: Boost[];
   setBoosts: Dispatch<SetStateAction<Boost[]>>;
 }
+export type DateSetter = {
+  dates: Date[]
+  setDates: Dispatch<SetStateAction<Date[]>>
+}

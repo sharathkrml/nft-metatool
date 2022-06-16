@@ -5,6 +5,7 @@ import PropertiesInput from "./Forms/PropertiesInput";
 import StatsInput from "./Forms/StatsInput";
 import LevelsInput from "./Forms/LevelsInput";
 import BoostsInput from "./Forms/BoostsInput";
+import DatesInput from "./Forms/DatesInput";
 
 const INPUTSTYLE =
   "bg-[#202225] border-2 border-[#4A5357] px-2 text-[#EDEDEE] focus:border-[#205ADC] rounded-md focus:outline-none";
@@ -19,6 +20,8 @@ const Form = ({
   setLevels,
   boosts,
   setBoosts,
+  dates,
+  setDates,
 }: InputMetaData) => {
   return (
     <div>
@@ -72,6 +75,8 @@ const Form = ({
       <LevelsInput levels={levels} setLevels={setLevels} />
       {/* Boosts */}
       <BoostsInput boosts={boosts} setBoosts={setBoosts} />
+      {/* Dates */}
+      <DatesInput dates={dates} setDates={setDates} />
     </div>
   );
 };
