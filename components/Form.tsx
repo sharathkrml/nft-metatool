@@ -1,12 +1,12 @@
 import { InputMetaData } from "../types";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
-import PropertiesInput from "./PropertiesInput";
-import StatsInput from "./StatsInput";
+import PropertiesInput from "./Forms/PropertiesInput";
+import StatsInput from "./Forms/StatsInput";
 
 const INPUTSTYLE =
   "bg-[#202225] border-2 border-[#4A5357] px-2 text-[#EDEDEE] focus:border-[#205ADC] rounded-md focus:outline-none";
-const FormComponent = ({
+const Form = ({
   basics,
   setBasics,
   properties,
@@ -66,4 +66,4 @@ const FormComponent = ({
   );
 };
 
-export default FormComponent;
+export default Form;

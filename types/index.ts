@@ -74,3 +74,7 @@ export type StatsSetter = {
   stats: Stats[];
   setStats: Dispatch<SetStateAction<Stats[]>>;
 };
+export type LevelsSetter = {
+  levels: Level[];
+  setLevels: Dispatch<SetStateAction<Level[]>>;
+}

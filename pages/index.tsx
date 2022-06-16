@@ -2,8 +2,8 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { Properties, Stats, Level, Boost, Date, Basics } from "../types";
-import FormComponent from "../components/FormComponent";
-import DisplayComponent from "../components/DisplayComponent";
+import Form from "../components/Form";
+import Display from "../components/Display";
 import { useState, useEffect } from "react";
 const Home: NextPage = () => {
   const [basics, setBasics] = useState<Basics>({})
@@ -84,7 +84,7 @@ const Home: NextPage = () => {
         </div>
       </nav>
       <div className="grid bg-[#202225] grid-cols-2 min-h-screen">
-        <aside className=""><FormComponent
+        <aside className=""><Form
           basics={basics}
           setBasics={setBasics}
           properties={properties}
@@ -100,7 +100,7 @@ const Home: NextPage = () => {
         /></aside>
         <section className=" text-white">
 
-          <DisplayComponent
+          <Display
             basics={basics}
             properties={properties}
             stats={stats}

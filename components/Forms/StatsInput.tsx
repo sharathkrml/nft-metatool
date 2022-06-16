@@ -1,6 +1,6 @@
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import AttributesInputHead from "./AttributesInputHead";
-import { StatsSetter } from "../types";
+import { StatsSetter } from "../../types";
 
 const INPUTSTYLE =
   "bg-[#202225] border-2 border-[#4A5357] px-2 text-[#EDEDEE] focus:border-[#205ADC] rounded-md focus:outline-none";
