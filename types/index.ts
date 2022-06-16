@@ -65,3 +65,12 @@ export type Attributes = {
   boosts: Boost[];
   dates: Date[];
 };
+export type PropertiesSetter = {
+  properties: Properties[];
+  setProperties: Dispatch<SetStateAction<Properties[]>>;
+};
+
+export type StatsSetter = {
+  stats: Stats[];
+  setStats: Dispatch<SetStateAction<Stats[]>>;
+};
