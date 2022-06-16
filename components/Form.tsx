@@ -3,6 +3,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import PropertiesInput from "./Forms/PropertiesInput";
 import StatsInput from "./Forms/StatsInput";
+import LevelsInput from "./Forms/LevelsInput";
 
 const INPUTSTYLE =
   "bg-[#202225] border-2 border-[#4A5357] px-2 text-[#EDEDEE] focus:border-[#205ADC] rounded-md focus:outline-none";
@@ -13,6 +14,8 @@ const Form = ({
   setProperties,
   stats,
   setStats,
+  levels,
+  setLevels,
 }: InputMetaData) => {
   return (
     <div>
@@ -62,6 +65,8 @@ const Form = ({
       <PropertiesInput properties={properties} setProperties={setProperties} />
       {/* Stats */}
       <StatsInput stats={stats} setStats={setStats} />
+      {/* levels */}
+      <LevelsInput levels={levels} setLevels={setLevels} />
     </div>
   );
 };

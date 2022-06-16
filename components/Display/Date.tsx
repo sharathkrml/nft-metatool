@@ -1,5 +1,5 @@
-import { Date } from "../../types";
-function Stats({ trait_type, value }: Date) {
+import { Date as DateType } from "../../types";
+function Stats({ trait_type, value }: DateType) {
   let date_String = new Date(value * 1000).toLocaleDateString("en-us", {
     weekday: "long",
     year: "numeric",
