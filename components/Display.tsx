@@ -1,6 +1,6 @@
 import Attributes from "./Attributes";
 import ExternalLink from "./ExternalLink";
-import ImagePreview from "./ImagePreview";
+import MediaPreview from "./MediaPreview";
 import Description from "./Description";
 import { DisplayMetaData } from "../types";
 
@@ -11,6 +11,7 @@ const Display = ({
   levels,
   boosts,
   dates,
+  media,
 }: DisplayMetaData) => {
   return (
     <div className="text-white px-10 py-5">
@@ -18,7 +19,7 @@ const Display = ({
       <div className="mt-3 mb-5 text-4xl text-[#E5E8EB]">
         {basics?.name || "Lorem Ipsum #1"}
       </div>
-      <ImagePreview />
+      <MediaPreview media={media} />
       <Description
         description={
           basics?.description ||

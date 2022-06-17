@@ -1,12 +1,18 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { Properties, Stats, Level, Boost, Date, Basics } from "../types";
+import { Properties, Stats, Level, Boost, Date, Basics ,Media} from "../types";
 import Form from "../components/Form";
 import Display from "../components/Display";
 import { useState, useEffect } from "react";
 const Home: NextPage = () => {
   const [basics, setBasics] = useState<Basics>({})
+  const [media, setMedia] = useState<Media>({
+    image: "ipfs://QmYrrfwBdN1ZTYaSqfM9z4QrmaxLJEoQCWXogCik6gMfso",
+    // animation_url: "ipfs://QmRVykoK57WXkJWojKnzf66zeUpEGhBj8u19emJSrjWa9m",
+    background_color: "0013F9",
+    // youtube_url:"https://www.youtube.com/watch?v=tPEE9ZwTmy0"
+  })
   const [properties, setProperties] = useState<Properties[]>([{
     "trait_type": "Base",
     "value": "Starfish"
@@ -97,6 +103,8 @@ const Home: NextPage = () => {
           setBoosts={setBoosts}
           dates={dates}
           setDates={setDates}
+          media={media}
+          setMedia={setMedia}
         /></aside>
         <section className=" text-white">
 
@@ -107,6 +115,7 @@ const Home: NextPage = () => {
             levels={levels}
             boosts={boosts}
             dates={dates}
+            media={media}
           />
         </section>
       </div>

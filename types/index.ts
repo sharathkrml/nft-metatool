@@ -5,8 +5,8 @@ export interface Basics {
   description?: string;
   external_url?: string;
 }
-export interface ImageVideo {
-  background_color?: string;
+export type Media = {
+  background_color: string;
   image?: string;
   animation_url?: string;
   youtube_url?: string;
@@ -48,15 +48,17 @@ export type AttributeWrapperProps = {
 };
 
 export type InputMetaData = DisplayMetaData & {
-  setBasics: Dispatch<SetStateAction<Basics>>;
-  setProperties: Dispatch<SetStateAction<Properties[]>>;
-  setStats: Dispatch<SetStateAction<Stats[]>>;
-  setLevels: Dispatch<SetStateAction<Level[]>>;
-  setBoosts: Dispatch<SetStateAction<Boost[]>>;
-  setDates: Dispatch<SetStateAction<Date[]>>;
+  setBasics: Dispatch<SetStateAction<Basics>>
+  setProperties: Dispatch<SetStateAction<Properties[]>>
+  setStats: Dispatch<SetStateAction<Stats[]>>
+  setLevels: Dispatch<SetStateAction<Level[]>>
+  setBoosts: Dispatch<SetStateAction<Boost[]>>
+  setDates: Dispatch<SetStateAction<Date[]>>
+  setMedia: Dispatch<SetStateAction<Media>>
 };
 export type DisplayMetaData = Attributes & {
   basics: Basics;
+  media: Media
 };
 export type Attributes = {
   properties: Properties[];

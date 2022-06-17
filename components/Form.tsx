@@ -6,6 +6,7 @@ import StatsInput from "./Forms/StatsInput";
 import LevelsInput from "./Forms/LevelsInput";
 import BoostsInput from "./Forms/BoostsInput";
 import DatesInput from "./Forms/DatesInput";
+import MediaInput from "./Forms/MediaInput";
 
 const INPUTSTYLE =
   "bg-[#202225] border-2 border-[#4A5357] px-2 text-[#EDEDEE] focus:border-[#205ADC] rounded-md focus:outline-none";
@@ -56,6 +57,7 @@ const Form = ({
         }
       />
       <br />
+      <MediaInput />
       <label htmlFor="description" className="text-[#205ADC] mr-2">
         Description
       </label>
