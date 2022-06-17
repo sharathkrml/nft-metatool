@@ -26,14 +26,17 @@ function MediaPreview({ media }: { media: Media }) {
         <span className="ml-1 text-base">0</span>
       </div>
       <div
+        style={{ backgroundColor: `#${background_color}` }}
         className={
-          "w-auto h-80 rounded-b-md flex items-center justify-center relative bg-[#" +
-          background_color +
-          "]"
+          "w-auto h-80 rounded-b-md flex items-center justify-center relative"
         }
       >
         {image && !youtube_url && !animation_url && (
-          <img className="object-fill h-full" src={convertedMedia(image)} />
+          <img
+            className="object-fill h-full"
+            src={convertedMedia(image)}
+            onLoad={() => console.log("loaded")}
+          />
         )}
         {youtube_url && !animation_url && (
           <iframe

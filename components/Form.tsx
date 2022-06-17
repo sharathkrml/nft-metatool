@@ -23,6 +23,8 @@ const Form = ({
   setBoosts,
   dates,
   setDates,
+  media,
+  setMedia,
 }: InputMetaData) => {
   return (
     <div>
@@ -57,7 +59,7 @@ const Form = ({
         }
       />
       <br />
-      <MediaInput />
+      <MediaInput media={media} setMedia={setMedia} />
       <label htmlFor="description" className="text-[#205ADC] mr-2">
         Description
       </label>

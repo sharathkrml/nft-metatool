@@ -9,3 +9,13 @@
     margin: 0;
   }
 }
+@layer utilities {
+  input[type="file"]::file-selector-button {
+    border: 0;
+    padding: 0.2em 0.4em;
+    border-radius: 0.2em;
+    background-color: #205adc;
+    color: black;
+    transition: 1s;
+  }
+}

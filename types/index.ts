@@ -88,3 +88,7 @@ export type DateSetter = {
   dates: Date[]
   setDates: Dispatch<SetStateAction<Date[]>>
 }
+export type MediaSetter = {
+  media: Media,
+  setMedia: Dispatch<SetStateAction<Media>>
+}
