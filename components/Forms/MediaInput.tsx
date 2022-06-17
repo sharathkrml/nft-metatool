@@ -7,7 +7,8 @@ const INPUTSTYLE =
   "bg-[#202225] border-2 border-[#4A5357] px-2 text-[#EDEDEE] focus:border-[#205ADC] rounded-md focus:outline-none";
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0" as Options);
 type Progress = {
-  status: "initial" | "uploading" | "completed";
+  statusImage: "initial" | "uploading" | "completed";
+  statusVideo: "initial" | "uploading" | "completed";
   total: number;
   progress: number;
 };
@@ -17,24 +18,27 @@ const MediaInput = ({ media, setMedia }: MediaSetter) => {
   const [progressData, setProgressData] = useState<Progress>({
     total: 10,
     progress: 9,
-    status: "initial",
+    statusImage: "initial",
+    statusVideo: "initial",
   });
-
-  const convertedMedia = (media: string) => {
-    if (media.startsWith("ipfs://")) {
-      return `https://ipfs.infura.io/ipfs/${media.split("ipfs://")[1]}`;
-    }
-    return media;
-  };
-  const uploadToIPFS = async (files: FileList | null) => {
+  const uploadToIPFS = async (
+    files: FileList | null,
+    video: boolean = false
+  ) => {
     if (files) {
       let file = files[0];
       try {
-        setProgressData((prev) => ({
-          ...prev,
-          total: file.size,
-          status: "uploading",
-        }));
+        video
+          ? setProgressData((prev) => ({
+              ...prev,
+              total: file.size,
+              statusVideo: "uploading",
+            }))
+          : setProgressData((prev) => ({
+              ...prev,
+              total: file.size,
+              statusImage: "uploading",
+            }));
         const added = await client.add(file, {
           progress: (prog) =>
             setProgressData((prev) => ({
@@ -42,10 +46,18 @@ const MediaInput = ({ media, setMedia }: MediaSetter) => {
               progress: prog,
             })),
         });
-        const url = `https://ipfs.infura.io/ipfs/${added.path}`;
-        setProgressData((prev) => ({ ...prev, status: "completed" }));
-        console.log(url);
-        setMedia((prev) => ({ ...prev, image: `ipfs://${added.path}` }));
+        video
+          ? setProgressData((prev) => ({ ...prev, statusVideo: "completed" }))
+          : setProgressData((prev) => ({ ...prev, statusImage: "completed" }));
+        video
+          ? setMedia((prev) => ({
+              ...prev,
+              animation_url: `ipfs://${added.path}`,
+            }))
+          : setMedia((prev) => ({
+              ...prev,
+              image: `ipfs://${added.path}`,
+            }));
       } catch (error) {
         console.log("Error uploading file: ", error);
       }
@@ -53,7 +65,7 @@ const MediaInput = ({ media, setMedia }: MediaSetter) => {
   };
   return (
     <div className="my-5">
-      <div className="text-[#205ADC]">Media</div>
+      <div className="text-[#205ADC] text-4xl">Media</div>
       <label className="text-[#205ADC]">Background Color</label>
       <input
         className={INPUTSTYLE}
@@ -66,14 +78,16 @@ const MediaInput = ({ media, setMedia }: MediaSetter) => {
         value={background_color}
       />
       <br />
-      <label className="text-[#205ADC]">Upload to IPFS</label>
+      <div className="text-[#205ADC] text-3xl mt-2">Image</div>
+
+      <label className="text-[#205ADC]">Upload Image to IPFS</label>
       <input
         className="text-white"
         id="file_input"
         type="file"
         onChange={(e) => uploadToIPFS(e.target.files)}
       ></input>
-      {progressData.status == "uploading" && (
+      {progressData.statusImage == "uploading" && (
         <div className="w-full flex items-center justify-center">
           <Line
             strokeColor={"#205ADC"}
@@ -82,7 +96,7 @@ const MediaInput = ({ media, setMedia }: MediaSetter) => {
         </div>
       )}
       <br />
-      {progressData.status != "uploading" && (
+      {progressData.statusImage != "uploading" && (
         <>
           <label className="text-[#205ADC]" htmlFor="image">
             Image Url
@@ -102,6 +116,7 @@ const MediaInput = ({ media, setMedia }: MediaSetter) => {
           </div>
         </>
       )}
+      <div className="text-[#205ADC] text-3xl mt-2">Youtube</div>
 
       <label className="text-[#205ADC]" htmlFor="youtube_url">
         Youtube Link
@@ -116,6 +131,41 @@ const MediaInput = ({ media, setMedia }: MediaSetter) => {
           setMedia((prev) => ({ ...prev, youtube_url: e.target.value }));
         }}
       />
+      <br />
+      <div className="text-[#205ADC] text-3xl mt-2">Animation</div>
+      <label className="text-[#205ADC]">Upload Video to IPFS</label>
+      <input
+        className="text-white"
+        id="file_input"
+        type="file"
+        onChange={(e) => uploadToIPFS(e.target.files, true)}
+      ></input>
+      {progressData.statusVideo == "uploading" && (
+        <div className="w-full flex items-center justify-center">
+          <Line
+            strokeColor={"#205ADC"}
+            percent={(progressData.progress * 100) / progressData.total}
+          />
+        </div>
+      )}
+      <br />
+      {progressData.statusVideo != "uploading" && (
+        <>
+          <label className="text-[#205ADC]" htmlFor="image">
+            Animation Url
+          </label>
+          <input
+            type="text"
+            name="image"
+            className={INPUTSTYLE}
+            id="image"
+            value={animation_url}
+            onChange={(e) =>
+              setMedia((prev) => ({ ...prev, animation_url: e.target.value }))
+            }
+          />
+        </>
+      )}
     </div>
   );
 };
