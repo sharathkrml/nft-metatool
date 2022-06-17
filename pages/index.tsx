@@ -1,11 +1,15 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { Properties, Stats, Level, Boost, Date, Basics ,Media} from "../types";
+import { Properties, Stats, Level, Boost, Date, Basics, Media } from "../types";
+import DownloadIcon from '@mui/icons-material/Download';
 import Form from "../components/Form";
 import Display from "../components/Display";
 import { useState, useEffect } from "react";
+const INPUTSTYLE =
+  "bg-[#202225] border-2 border-[#4A5357] px-2 text-[#EDEDEE] focus:border-[#205ADC] rounded-md focus:outline-none";
 const Home: NextPage = () => {
+  const [filename,setFilename] = useState<string>("")
   const [basics, setBasics] = useState<Basics>({})
   const [media, setMedia] = useState<Media>({
     image: "ipfs://QmYrrfwBdN1ZTYaSqfM9z4QrmaxLJEoQCWXogCik6gMfso",
@@ -70,11 +74,16 @@ const Home: NextPage = () => {
     "trait_type": "1st anniversary",
     "value": 1577920800
   }])
-  useEffect(() => {
-    console.log(stats);
-
-  }, [stats])
-
+  const downloadJson = ()=> {
+    let metadata = { ...basics, ...media ,attributes:[...dates,...boosts,...levels,...stats,...properties]}
+    const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
+      JSON.stringify(metadata)
+    )}`;
+    const link = document.createElement("a");
+    link.href = jsonString;
+    link.download = filename;
+    link.click();
+}
   return (
     <div>
       <Head>
@@ -84,9 +93,15 @@ const Home: NextPage = () => {
       </Head>
 
       <nav>
-        <div className="bg-[#04111D] p-4 text-xl  text-slate-300">
+        <div className="bg-[#04111D] p-4 text-xl flex justify-between item-center text-slate-300">
           <span className="text-2xl">NFT MetaTool🚀</span>
-
+          <div className="flex">
+            <input type="text" className={`${INPUTSTYLE} w-28`} placeholder="1.json" value={filename} onChange={(e)=>setFilename(e.target.value)} />
+            <button onClick={downloadJson} className="border-2 hover:border-[#205ADC] border-[#4A5357] text-[#4A5357] hover:text-[#205ADC] ml-2 rounded-full">
+              <DownloadIcon color="inherit" className="w-8 h-8"/>
+            </button>
+            {/* <button className="border-2 ml-2 rounded-md border-[#4A5357] text-[#4A5357] hover:text-[#205ADC] hover:border-[#205ADC]">MINT</button> */}
+          </div>
         </div>
       </nav>
       <div className="grid bg-[#202225] grid-cols-2 min-h-screen">
