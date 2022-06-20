@@ -1,4 +1,4 @@
-import { MediaSetter } from "../../types";
+import { MediaSetter, Progress } from "../../types";
 import { create as ipfsHttpClient, Options } from "ipfs-http-client";
 import { Line } from "rc-progress";
 import { useState } from "react";
@@ -6,12 +6,6 @@ import { Preview } from "@mui/icons-material";
 const INPUTSTYLE =
   "bg-[#202225] border-2 border-[#4A5357] px-2 text-[#EDEDEE] focus:border-[#205ADC] rounded-md focus:outline-none";
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0" as Options);
-type Progress = {
-  statusImage: "initial" | "uploading" | "completed";
-  statusVideo: "initial" | "uploading" | "completed";
-  total: number;
-  progress: number;
-};
 
 const MediaInput = ({ media, setMedia }: MediaSetter) => {
   let { background_color, animation_url, image, youtube_url } = media;
@@ -65,21 +59,29 @@ const MediaInput = ({ media, setMedia }: MediaSetter) => {
   };
   return (
     <div className="my-5">
-      <div className="text-[#205ADC] font-happy-monkey text-4xl">Media</div>
-      <label className="text-[#205ADC] font-happy-monkey">
-        Background Color :
-      </label>
-      <input
-        className={INPUTSTYLE}
-        type="text"
-        name="background_color"
-        id="background_color"
-        onChange={(e) =>
-          setMedia((prev) => ({ ...prev, background_color: e.target.value }))
-        }
-        value={background_color}
-      />
-      <br />
+      <div className="text-[#205ADC] font-happy-monkey text-center text-4xl">
+        Media
+      </div>
+      <div className="flex justify-end items-center my-3">
+        <label className="text-[#205ADC] font-happy-monkey mr-2">
+          Background <div className="text-right">Color :</div>
+        </label>
+        <div className="w-8/12">
+          <input
+            className={`${INPUTSTYLE} w-3/12 h-8`}
+            type="text"
+            name="background_color"
+            id="background_color"
+            onChange={(e) =>
+              setMedia((prev) => ({
+                ...prev,
+                background_color: e.target.value,
+              }))
+            }
+            value={background_color}
+          />
+        </div>
+      </div>
       <div className="text-[#205ADC] font-happy-monkey text-3xl mt-2">
         Image
       </div>

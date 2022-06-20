@@ -92,3 +92,9 @@ export type MediaSetter = {
   media: Media,
   setMedia: Dispatch<SetStateAction<Media>>
 }
+export type Progress = {
+  statusImage: "initial" | "uploading" | "completed";
+  statusVideo: "initial" | "uploading" | "completed";
+  total: number;
+  progress: number;
+};
