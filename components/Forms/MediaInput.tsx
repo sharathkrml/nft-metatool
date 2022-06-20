@@ -82,19 +82,23 @@ const MediaInput = ({ media, setMedia }: MediaSetter) => {
           />
         </div>
       </div>
-      <div className="text-[#205ADC] font-happy-monkey text-3xl mt-2">
+      <div className="text-[#205ADC] font-happy-monkey text-3xl pl-[20%]">
         Image
       </div>
+      <div className="flex justify-end items-center">
+        <label className="text-[#205ADC] font-happy-monkey mr-2">
+          Upload Image to IPFS
+        </label>
+        <div className="w-2/3">
+          <input
+            className={`text-white h-8`}
+            id="file_input"
+            type="file"
+            onChange={(e) => uploadToIPFS(e.target.files)}
+          ></input>
+        </div>
+      </div>
 
-      <label className="text-[#205ADC] font-happy-monkey">
-        Upload Image to IPFS :
-      </label>
-      <input
-        className="text-white"
-        id="file_input"
-        type="file"
-        onChange={(e) => uploadToIPFS(e.target.files)}
-      ></input>
       {progressData.statusImage == "uploading" && (
         <div className="w-full flex items-center justify-center">
           <Line
@@ -106,25 +110,32 @@ const MediaInput = ({ media, setMedia }: MediaSetter) => {
       <br />
       {progressData.statusImage != "uploading" && (
         <>
-          <label className="text-[#205ADC] font-happy-monkey" htmlFor="image">
-            Image Url :
-          </label>
-          <input
-            type="text"
-            name="image"
-            className={INPUTSTYLE}
-            id="image"
-            value={image}
-            onChange={(e) =>
-              setMedia((prev) => ({ ...prev, image: e.target.value }))
-            }
-          />
-          <div className="text-xs text-[#2DFBBD] font-happy-monkey">
-            Image can be of form ipfs:// or https://
+          <div className="flex justify-end items-center">
+            <label
+              className="text-[#205ADC] font-happy-monkey mr-2"
+              htmlFor="image"
+            >
+              Image Url :
+            </label>
+            <input
+              type="text"
+              name="image"
+              className={`${INPUTSTYLE} h-8 w-8/12`}
+              id="image"
+              value={image}
+              onChange={(e) =>
+                setMedia((prev) => ({ ...prev, image: e.target.value }))
+              }
+            />
+          </div>
+          <div className="flex justify-end items-center">
+            <div className="text-xs w-8/12  text-[#2DFBBD] font-happy-monkey">
+              Image can be of form ipfs:// or https://
+            </div>
           </div>
         </>
       )}
-      <div className="text-[#205ADC] font-happy-monkey text-3xl mt-2">
+      <div className="text-[#205ADC] font-happy-monkey text-3xl pl-[20%]">
         Youtube
       </div>
 
@@ -142,7 +153,7 @@ const MediaInput = ({ media, setMedia }: MediaSetter) => {
         }}
       />
       <br />
-      <div className="text-[#205ADC] font-happy-monkey text-3xl mt-2">
+      <div className="text-[#205ADC] font-happy-monkey text-3xl  pl-[20%]">
         Animation
       </div>
       <label className="text-[#205ADC] font-happy-monkey">
