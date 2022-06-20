@@ -38,12 +38,12 @@ const LevelsInput = ({ levels, setLevels }: LevelsSetter) => {
     setLevels(newlevels);
   };
   return (
-    <div>
+    <div className="flex flex-col items-end">
       <AttributesInputHead addFn={addLevels} title="Levels" />
       {levels.map((level, i) => (
-        <div key={i} className="flex justify-around mb-2">
+        <div key={i} className="mb-2">
           <input
-            className={INPUTSTYLE}
+            className={`mr-4 ${INPUTSTYLE}`}
             type="text"
             name="trait_type"
             placeholder="trait_type"
@@ -58,7 +58,7 @@ const LevelsInput = ({ levels, setLevels }: LevelsSetter) => {
             name="value"
             id="value"
             value={level.value}
-            className={`w-20 ${INPUTSTYLE}`}
+            className={`w-28 mr-4 ${INPUTSTYLE}`}
             onChange={(e) => {
               editValue(i, parseFloat(e.target.value));
             }}
@@ -69,7 +69,7 @@ const LevelsInput = ({ levels, setLevels }: LevelsSetter) => {
             name="max_value"
             id="max_value"
             value={level.max_value}
-            className={`w-20 ${INPUTSTYLE}`}
+            className={`w-28 mr-4 ${INPUTSTYLE}`}
             onChange={(e) => {
               editMaxValue(i, parseFloat(e.target.value));
             }}

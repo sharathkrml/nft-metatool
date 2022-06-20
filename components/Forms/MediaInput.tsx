@@ -62,10 +62,11 @@ const MediaInput = ({ media, setMedia }: MediaSetter) => {
       <div className="text-[#205ADC] font-happy-monkey text-center text-4xl">
         Media
       </div>
-      <div className="flex justify-end items-center my-3">
+      <div className="flex justify-end items-center mt-3">
         <label className="text-[#205ADC] font-happy-monkey mr-2">
           Background <div className="text-right">Color :</div>
         </label>
+
         <div className="w-8/12">
           <input
             className={`${INPUTSTYLE} w-3/12 h-8`}
@@ -80,6 +81,11 @@ const MediaInput = ({ media, setMedia }: MediaSetter) => {
             }
             value={background_color}
           />
+        </div>
+      </div>
+      <div className="flex justify-end items-center">
+        <div className="text-xs w-8/12  text-[#2DFBBD] font-happy-monkey">
+          hexadecimal without a pre-pended #.
         </div>
       </div>
       <div className="text-[#205ADC] font-happy-monkey text-3xl pl-[20%]">
@@ -100,7 +106,7 @@ const MediaInput = ({ media, setMedia }: MediaSetter) => {
       </div>
 
       {progressData.statusImage == "uploading" && (
-        <div className="w-full flex items-center justify-center">
+        <div className="w-[90%] ml-[10%] my-2 flex items-center justify-center">
           <Line
             strokeColor={"#205ADC"}
             percent={(progressData.progress * 100) / progressData.total}
@@ -173,7 +179,7 @@ const MediaInput = ({ media, setMedia }: MediaSetter) => {
         </div>
       </div>
       {progressData.statusVideo == "uploading" && (
-        <div className="w-full flex items-center justify-center">
+        <div className="w-[90%] ml-[10%] my-2 flex items-center justify-center">
           <Line
             strokeColor={"#205ADC"}
             percent={(progressData.progress * 100) / progressData.total}

@@ -33,12 +33,12 @@ const StatsInput = ({ stats, setStats }: StatsSetter) => {
     setStats(newStats);
   };
   return (
-    <div className="flex flex-col item-end justify-end ">
+    <div className="flex flex-col items-end">
       <AttributesInputHead addFn={addStats} title="Stats" />
       {stats.map((stat, i) => (
-        <div key={i} className="flex mb-2 justify-around">
+        <div key={i} className="flex mb-2 items-center justify-center">
           <input
-            className={INPUTSTYLE}
+            className={`${INPUTSTYLE} mr-4`}
             type="text"
             name="trait_type"
             placeholder="trait_type"
@@ -52,7 +52,7 @@ const StatsInput = ({ stats, setStats }: StatsSetter) => {
             type="number"
             name="value"
             id="value"
-            className={`w-20 ${INPUTSTYLE}`}
+            className={`w-28 ${INPUTSTYLE} mr-4`}
             value={stat.value}
             onChange={(e) => {
               editValue(i, parseFloat(e.target.value));
@@ -64,12 +64,12 @@ const StatsInput = ({ stats, setStats }: StatsSetter) => {
             type="number"
             name="value"
             id="value"
-            className={`w-20 ${INPUTSTYLE}`}
+            className={`w-28 ${INPUTSTYLE} mr-4`}
             value={stat.max_value}
             onChange={(e) => {
               editMaxValue(i, parseFloat(e.target.value));
             }}
-            placeholder="value"
+            placeholder="max_value"
           />
           <RemoveCircle index={i} deleteFn={deleteStat} />
         </div>

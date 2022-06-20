@@ -41,13 +41,13 @@ const BoostsInput = ({ boosts, setBoosts }: BoostSetter) => {
     setBoosts(newboosts);
   };
   return (
-    <div>
+    <div className="flex flex-col items-end">
       <AttributesInputHead addFn={addBoost} title="Boosts" />
       {boosts.map((boost, i) => (
-        <div key={i} className="flex justify-around mb-2">
+        <div key={i} className="mb-2">
           <select
             name="display_type"
-            className={INPUTSTYLE}
+            className={`mr-2 ${INPUTSTYLE}`}
             id="display_type"
             value={boost.display_type}
             onChange={(e) =>
@@ -62,7 +62,7 @@ const BoostsInput = ({ boosts, setBoosts }: BoostSetter) => {
           </select>
 
           <input
-            className={INPUTSTYLE}
+            className={`mr-2 ${INPUTSTYLE}`}
             type="text"
             name="trait_type"
             placeholder="trait_type"
@@ -77,7 +77,7 @@ const BoostsInput = ({ boosts, setBoosts }: BoostSetter) => {
             name="value"
             id="value"
             value={boost.value}
-            className={`w-20 ${INPUTSTYLE}`}
+            className={`w-20 mr-2 ${INPUTSTYLE}`}
             onChange={(e) => {
               editValue(i, parseFloat(e.target.value));
             }}
