@@ -1,20 +1,19 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
 import { Properties, Stats, Level, Boost, Date, Basics, Media } from "../types";
 import DownloadIcon from '@mui/icons-material/Download';
 import Form from "../components/Form";
 import Display from "../components/Display";
 import { useState, useEffect } from "react";
-const INPUTSTYLE =
-  "bg-[#202225] border-2 border-[#4A5357] px-2 text-[#EDEDEE] focus:border-[#205ADC] rounded-md focus:outline-none";
+import {INPUTSTYLE} from '../styles'
+
 const Home: NextPage = () => {
   const [filename,setFilename] = useState<string>("")
   const [basics, setBasics] = useState<Basics>({})
   const [media, setMedia] = useState<Media>({
-    image: "ipfs://QmYrrfwBdN1ZTYaSqfM9z4QrmaxLJEoQCWXogCik6gMfso",
+    image: "ipfs://QmPsb1jthhrqqRjT6FCFbi7ZSHaJEF1Jdd43xVVnPbyTzN",
     // animation_url: "ipfs://QmRVykoK57WXkJWojKnzf66zeUpEGhBj8u19emJSrjWa9m",
-    background_color: "0013F9",
+    background_color: "251A52",
     // youtube_url:"https://www.youtube.com/watch?v=tPEE9ZwTmy0"
   })
   const [properties, setProperties] = useState<Properties[]>([{

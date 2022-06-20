@@ -4,7 +4,12 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        khand: ['"Khand"', "cursive"],
+        "happy-monkey": ['"Happy Monkey"', "cursive"],
+      },
+    },
   },
   plugins: [],
 };

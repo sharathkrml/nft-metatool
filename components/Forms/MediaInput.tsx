@@ -65,8 +65,10 @@ const MediaInput = ({ media, setMedia }: MediaSetter) => {
   };
   return (
     <div className="my-5">
-      <div className="text-[#205ADC] text-4xl">Media</div>
-      <label className="text-[#205ADC]">Background Color</label>
+      <div className="text-[#205ADC] font-happy-monkey text-4xl">Media</div>
+      <label className="text-[#205ADC] font-happy-monkey">
+        Background Color :
+      </label>
       <input
         className={INPUTSTYLE}
         type="text"
@@ -78,9 +80,13 @@ const MediaInput = ({ media, setMedia }: MediaSetter) => {
         value={background_color}
       />
       <br />
-      <div className="text-[#205ADC] text-3xl mt-2">Image</div>
+      <div className="text-[#205ADC] font-happy-monkey text-3xl mt-2">
+        Image
+      </div>
 
-      <label className="text-[#205ADC]">Upload Image to IPFS</label>
+      <label className="text-[#205ADC] font-happy-monkey">
+        Upload Image to IPFS :
+      </label>
       <input
         className="text-white"
         id="file_input"
@@ -98,8 +104,8 @@ const MediaInput = ({ media, setMedia }: MediaSetter) => {
       <br />
       {progressData.statusImage != "uploading" && (
         <>
-          <label className="text-[#205ADC]" htmlFor="image">
-            Image Url
+          <label className="text-[#205ADC] font-happy-monkey" htmlFor="image">
+            Image Url :
           </label>
           <input
             type="text"
@@ -111,15 +117,17 @@ const MediaInput = ({ media, setMedia }: MediaSetter) => {
               setMedia((prev) => ({ ...prev, image: e.target.value }))
             }
           />
-          <div className="text-xs text-slate-300">
+          <div className="text-xs text-[#2DFBBD] font-happy-monkey">
             Image can be of form ipfs:// or https://
           </div>
         </>
       )}
-      <div className="text-[#205ADC] text-3xl mt-2">Youtube</div>
+      <div className="text-[#205ADC] font-happy-monkey text-3xl mt-2">
+        Youtube
+      </div>
 
-      <label className="text-[#205ADC]" htmlFor="youtube_url">
-        Youtube Link
+      <label className="text-[#205ADC] font-happy-monkey" htmlFor="youtube_url">
+        Youtube Link :
       </label>
       <input
         type="text"
@@ -132,8 +140,12 @@ const MediaInput = ({ media, setMedia }: MediaSetter) => {
         }}
       />
       <br />
-      <div className="text-[#205ADC] text-3xl mt-2">Animation</div>
-      <label className="text-[#205ADC]">Upload Video to IPFS</label>
+      <div className="text-[#205ADC] font-happy-monkey text-3xl mt-2">
+        Animation
+      </div>
+      <label className="text-[#205ADC] font-happy-monkey">
+        Upload Video to IPFS :
+      </label>
       <input
         className="text-white"
         id="file_input"
@@ -151,8 +163,8 @@ const MediaInput = ({ media, setMedia }: MediaSetter) => {
       <br />
       {progressData.statusVideo != "uploading" && (
         <>
-          <label className="text-[#205ADC]" htmlFor="image">
-            Animation Url
+          <label className="text-[#205ADC] font-happy-monkey" htmlFor="image">
+            Animation Url :
           </label>
           <input
             type="text"
