@@ -8,9 +8,9 @@ const AttributesInputHead = ({
   title: string;
 }) => {
   return (
-    <div className="w-1/3 flex justify-between">
-      <span className="text-[#205ADC]">{title}</span>
-      <button className="text-white" onClick={addFn}>
+    <div className="w-[90%] flex justify-between">
+      <span className="text-[#205ADC]">{title} :</span>
+      <button className="text-[#2BFBBD]" onClick={addFn}>
         <AddCircleOutlineIcon color="inherit" />
       </button>
     </div>

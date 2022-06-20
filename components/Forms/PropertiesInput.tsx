@@ -1,4 +1,5 @@
-import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+
 import AttributesInputHead from "./AttributesInputHead";
 import { PropertiesSetter } from "../../types";
 
@@ -32,12 +33,12 @@ const PropertiesInput = ({ properties, setProperties }: PropertiesSetter) => {
     setProperties(newProperties);
   };
   return (
-    <div>
+    <div className="flex flex-col items-end justify-center">
       <AttributesInputHead addFn={addProperty} title="Property" />
       {properties.map((property, i) => (
-        <div key={i} className="flex justify-around mb-2">
+        <div key={i} className="mb-2">
           <input
-            className={INPUTSTYLE}
+            className={`${INPUTSTYLE} mr-2`}
             type="text"
             name="trait_type"
             placeholder="trait_type"
@@ -59,7 +60,7 @@ const PropertiesInput = ({ properties, setProperties }: PropertiesSetter) => {
             placeholder="value"
           />
           <button className="text-red-500" onClick={() => deleteProperty(i)}>
-            <RemoveCircleIcon color="inherit" />
+            <RemoveCircleOutlineIcon color="inherit" />
           </button>
         </div>
       ))}
