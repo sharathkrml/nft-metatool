@@ -107,10 +107,9 @@ const MediaInput = ({ media, setMedia }: MediaSetter) => {
           />
         </div>
       )}
-      <br />
       {progressData.statusImage != "uploading" && (
         <>
-          <div className="flex justify-end items-center">
+          <div className="flex justify-end items-center mt-1">
             <label
               className="text-[#205ADC] font-happy-monkey mr-2"
               htmlFor="image"
@@ -130,7 +129,7 @@ const MediaInput = ({ media, setMedia }: MediaSetter) => {
           </div>
           <div className="flex justify-end items-center">
             <div className="text-xs w-8/12  text-[#2DFBBD] font-happy-monkey">
-              Image can be of form ipfs:// or https://
+              Can be of form ipfs:// or https://
             </div>
           </div>
         </>
@@ -138,33 +137,41 @@ const MediaInput = ({ media, setMedia }: MediaSetter) => {
       <div className="text-[#205ADC] font-happy-monkey text-3xl pl-[20%]">
         Youtube
       </div>
+      <div className="flex justify-end items-center">
+        <label
+          className="text-[#205ADC] font-happy-monkey mr-2"
+          htmlFor="youtube_url"
+        >
+          Youtube Link :
+        </label>
+        <input
+          type="text"
+          name="youtube_url"
+          id="youtube_url"
+          className={`${INPUTSTYLE} w-8/12 h-8`}
+          value={youtube_url || ""}
+          onChange={(e) => {
+            setMedia((prev) => ({ ...prev, youtube_url: e.target.value }));
+          }}
+        />
+      </div>
 
-      <label className="text-[#205ADC] font-happy-monkey" htmlFor="youtube_url">
-        Youtube Link :
-      </label>
-      <input
-        type="text"
-        name="youtube_url"
-        id="youtube_url"
-        className={INPUTSTYLE}
-        value={youtube_url || ""}
-        onChange={(e) => {
-          setMedia((prev) => ({ ...prev, youtube_url: e.target.value }));
-        }}
-      />
-      <br />
       <div className="text-[#205ADC] font-happy-monkey text-3xl  pl-[20%]">
         Animation
       </div>
-      <label className="text-[#205ADC] font-happy-monkey">
-        Upload Video to IPFS :
-      </label>
-      <input
-        className="text-white"
-        id="file_input"
-        type="file"
-        onChange={(e) => uploadToIPFS(e.target.files, true)}
-      ></input>
+      <div className="flex justify-end items-center">
+        <label className="text-[#205ADC] font-happy-monkey mr-2">
+          Upload Video to IPFS
+        </label>
+        <div className="w-2/3">
+          <input
+            className="text-white"
+            id="file_input"
+            type="file"
+            onChange={(e) => uploadToIPFS(e.target.files, true)}
+          />
+        </div>
+      </div>
       {progressData.statusVideo == "uploading" && (
         <div className="w-full flex items-center justify-center">
           <Line
@@ -173,22 +180,31 @@ const MediaInput = ({ media, setMedia }: MediaSetter) => {
           />
         </div>
       )}
-      <br />
       {progressData.statusVideo != "uploading" && (
         <>
-          <label className="text-[#205ADC] font-happy-monkey" htmlFor="image">
-            Animation Url :
-          </label>
-          <input
-            type="text"
-            name="image"
-            className={INPUTSTYLE}
-            id="image"
-            value={animation_url}
-            onChange={(e) =>
-              setMedia((prev) => ({ ...prev, animation_url: e.target.value }))
-            }
-          />
+          <div className="flex justify-end items-center mt-1">
+            <label
+              className="text-[#205ADC] font-happy-monkey mr-2"
+              htmlFor="image"
+            >
+              Animation Url :
+            </label>
+            <input
+              type="text"
+              name="image"
+              className={`${INPUTSTYLE} w-8/12 h-8`}
+              id="image"
+              value={animation_url}
+              onChange={(e) =>
+                setMedia((prev) => ({ ...prev, animation_url: e.target.value }))
+              }
+            />
+          </div>
+          <div className="flex justify-end items-center">
+            <div className="text-xs w-8/12  text-[#2DFBBD] font-happy-monkey">
+              Can be of form ipfs:// or https://
+            </div>
+          </div>
         </>
       )}
     </div>
