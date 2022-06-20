@@ -1,6 +1,7 @@
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import AttributesInputHead from "./AttributesInputHead";
 import { BoostSetter } from "../../types";
+import RemoveCircle from "../RemoveCircle";
 
 const INPUTSTYLE =
   "bg-[#202225] border-2 border-[#4A5357] px-2 text-[#EDEDEE] focus:border-[#205ADC] rounded-md focus:outline-none";
@@ -82,9 +83,7 @@ const BoostsInput = ({ boosts, setBoosts }: BoostSetter) => {
             }}
             placeholder="value"
           />
-          <button className="text-red-500" onClick={() => deleteBoosts(i)}>
-            <RemoveCircleIcon color="inherit" />
-          </button>
+          <RemoveCircle index={i} deleteFn={deleteBoosts} />
         </div>
       ))}
     </div>

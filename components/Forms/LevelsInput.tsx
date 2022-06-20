@@ -1,6 +1,7 @@
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import AttributesInputHead from "./AttributesInputHead";
 import { LevelsSetter } from "../../types";
+import RemoveCircle from "../RemoveCircle";
 
 const INPUTSTYLE =
   "bg-[#202225] border-2 border-[#4A5357] px-2 text-[#EDEDEE] focus:border-[#205ADC] rounded-md focus:outline-none";
@@ -73,9 +74,8 @@ const LevelsInput = ({ levels, setLevels }: LevelsSetter) => {
               editMaxValue(i, parseFloat(e.target.value));
             }}
           />
-          <button className="text-red-500" onClick={() => deleteLevel(i)}>
-            <RemoveCircleIcon color="inherit" />
-          </button>
+
+          <RemoveCircle index={i} deleteFn={deleteLevel} />
         </div>
       ))}
     </div>

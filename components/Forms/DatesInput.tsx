@@ -1,4 +1,4 @@
-import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import RemoveCircle from "../RemoveCircle";
 import AttributesInputHead from "./AttributesInputHead";
 import { DateSetter } from "../../types";
 const INPUTSTYLE =
@@ -36,15 +36,15 @@ const DatesInput = ({ dates, setDates }: DateSetter) => {
     setDates(newDates);
   };
   return (
-    <div>
+    <div className="flex flex-col items-end justify-center">
       <AttributesInputHead addFn={addDate} title="Dates" />
       {dates.map((date, i) => {
         let dateInSeconds = new Date(date.value * 1000);
         let [convertedDate] = dateInSeconds.toISOString().split("T");
         return (
-          <div key={i} className="flex justify-around mb-2">
+          <div key={i} className="mb-2">
             <input
-              className={INPUTSTYLE}
+              className={`${INPUTSTYLE} mr-10`}
               type="text"
               name="trait_type"
               placeholder="trait_type"
@@ -60,11 +60,9 @@ const DatesInput = ({ dates, setDates }: DateSetter) => {
               id="date"
               onChange={(e) => editDateValue(i, e.target.value)}
               value={convertedDate}
-              className={INPUTSTYLE}
+              className={`${INPUTSTYLE} mr-10`}
             />
-            <button className="text-red-500" onClick={() => deleteDates(i)}>
-              <RemoveCircleIcon color="inherit" />
-            </button>
+            <RemoveCircle index={i} deleteFn={deleteDates} />
           </div>
         );
       })}

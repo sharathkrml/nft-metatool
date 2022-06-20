@@ -2,6 +2,7 @@ import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 
 import AttributesInputHead from "./AttributesInputHead";
 import { PropertiesSetter } from "../../types";
+import RemoveCircle from "../RemoveCircle";
 
 const INPUTSTYLE =
   "bg-[#202225] border-2 border-[#4A5357] px-2 text-[#EDEDEE] focus:border-[#205ADC] rounded-md focus:outline-none";
@@ -59,9 +60,7 @@ const PropertiesInput = ({ properties, setProperties }: PropertiesSetter) => {
             }}
             placeholder="value"
           />
-          <button className="text-red-500" onClick={() => deleteProperty(i)}>
-            <RemoveCircleOutlineIcon color="inherit" />
-          </button>
+          <RemoveCircle index={i} deleteFn={deleteProperty} />
         </div>
       ))}
     </div>

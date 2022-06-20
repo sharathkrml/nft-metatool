@@ -1,6 +1,7 @@
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import AttributesInputHead from "./AttributesInputHead";
 import { StatsSetter } from "../../types";
+import RemoveCircle from "../RemoveCircle";
 
 const INPUTSTYLE =
   "bg-[#202225] border-2 border-[#4A5357] px-2 text-[#EDEDEE] focus:border-[#205ADC] rounded-md focus:outline-none";
@@ -32,7 +33,7 @@ const StatsInput = ({ stats, setStats }: StatsSetter) => {
     setStats(newStats);
   };
   return (
-    <div>
+    <div className="flex flex-col item-end justify-end ">
       <AttributesInputHead addFn={addStats} title="Stats" />
       {stats.map((stat, i) => (
         <div key={i} className="flex mb-2 justify-around">
@@ -70,9 +71,7 @@ const StatsInput = ({ stats, setStats }: StatsSetter) => {
             }}
             placeholder="value"
           />
-          <button className="text-red-500" onClick={() => deleteStat(i)}>
-            <RemoveCircleIcon color="inherit" />
-          </button>
+          <RemoveCircle index={i} deleteFn={deleteStat} />
         </div>
       ))}
     </div>
