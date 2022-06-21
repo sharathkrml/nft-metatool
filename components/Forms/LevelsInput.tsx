@@ -2,9 +2,8 @@ import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import AttributesInputHead from "./AttributesInputHead";
 import { LevelsSetter } from "../../types";
 import RemoveCircle from "../RemoveCircle";
-
-const INPUTSTYLE =
-  "bg-[#202225] border-2 border-[#4A5357] px-2 text-[#EDEDEE] focus:border-[#205ADC] rounded-md focus:outline-none";
+import { INPUTSTYLE } from "../../styles";
+import { motion, AnimatePresence } from "framer-motion";
 const LevelsInput = ({ levels, setLevels }: LevelsSetter) => {
   const addLevels = () => {
     setLevels((prev) => [
@@ -40,44 +39,52 @@ const LevelsInput = ({ levels, setLevels }: LevelsSetter) => {
   return (
     <div className="flex flex-col items-end">
       <AttributesInputHead addFn={addLevels} title="Levels" />
-      {levels.map((level, i) => (
-        <div key={i} className="mb-2">
-          <input
-            className={`mr-4 ${INPUTSTYLE}`}
-            type="text"
-            name="trait_type"
-            placeholder="trait_type"
-            id="trait_type"
-            value={level.trait_type}
-            onChange={(e) => {
-              editTrait(i, e.target.value);
-            }}
-          />
-          <input
-            type="number"
-            name="value"
-            id="value"
-            value={level.value}
-            className={`w-28 mr-4 ${INPUTSTYLE}`}
-            onChange={(e) => {
-              editValue(i, parseFloat(e.target.value));
-            }}
-            placeholder="value"
-          />
-          <input
-            type="number"
-            name="max_value"
-            id="max_value"
-            value={level.max_value}
-            className={`w-28 mr-4 ${INPUTSTYLE}`}
-            onChange={(e) => {
-              editMaxValue(i, parseFloat(e.target.value));
-            }}
-          />
+      <AnimatePresence>
+        {levels.map((level, i) => (
+          <motion.div
+            initial={{ x: -100 }}
+            animate={{ x: 0 }}
+            exit={{ opacity: 0 }}
+            key={i}
+            className="mb-2"
+          >
+            <input
+              className={`mr-4 ${INPUTSTYLE}`}
+              type="text"
+              name="trait_type"
+              placeholder="trait_type"
+              id="trait_type"
+              value={level.trait_type}
+              onChange={(e) => {
+                editTrait(i, e.target.value);
+              }}
+            />
+            <input
+              type="number"
+              name="value"
+              id="value"
+              value={level.value}
+              className={`w-28 mr-4 ${INPUTSTYLE}`}
+              onChange={(e) => {
+                editValue(i, parseFloat(e.target.value));
+              }}
+              placeholder="value"
+            />
+            <input
+              type="number"
+              name="max_value"
+              id="max_value"
+              value={level.max_value}
+              className={`w-28 mr-4 ${INPUTSTYLE}`}
+              onChange={(e) => {
+                editMaxValue(i, parseFloat(e.target.value));
+              }}
+            />
 
-          <RemoveCircle index={i} deleteFn={deleteLevel} />
-        </div>
-      ))}
+            <RemoveCircle index={i} deleteFn={deleteLevel} />
+          </motion.div>
+        ))}
+      </AnimatePresence>
     </div>
   );
 };

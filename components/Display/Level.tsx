@@ -1,8 +1,14 @@
 import { Line } from "rc-progress";
 import { Level } from "../../types";
+import { motion } from "framer-motion";
 function Level({ trait_type, value, max_value }: Level) {
   return (
-    <div className="px-2">
+    <motion.div
+      initial={{ y: -20 }}
+      animate={{ y: 0 }}
+      exit={{ opacity: 0 }}
+      className="px-2 mb-2"
+    >
       <div className="flex justify-between py-2">
         <div>{trait_type}</div>
         <div>
@@ -16,7 +22,7 @@ function Level({ trait_type, value, max_value }: Level) {
         strokeColor="#2081E2"
         trailColor="#303339"
       />
-    </div>
+    </motion.div>
   );
 }
 

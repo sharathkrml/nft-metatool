@@ -1,8 +1,8 @@
 import RemoveCircle from "../RemoveCircle";
 import AttributesInputHead from "./AttributesInputHead";
 import { DateSetter } from "../../types";
-const INPUTSTYLE =
-  "bg-[#202225] border-2 border-[#4A5357] px-2 text-[#EDEDEE] focus:border-[#205ADC] rounded-md focus:outline-none";
+import { INPUTSTYLE } from "../../styles";
+import { motion, AnimatePresence } from "framer-motion";
 const DatesInput = ({ dates, setDates }: DateSetter) => {
   let dateNow = new Date();
 
@@ -38,34 +38,42 @@ const DatesInput = ({ dates, setDates }: DateSetter) => {
   return (
     <div className="flex flex-col items-end justify-center">
       <AttributesInputHead addFn={addDate} title="Dates" />
-      {dates.map((date, i) => {
-        let dateInSeconds = new Date(date.value * 1000);
-        let [convertedDate] = dateInSeconds.toISOString().split("T");
-        return (
-          <div key={i} className="mb-2">
-            <input
-              className={`${INPUTSTYLE} mr-10`}
-              type="text"
-              name="trait_type"
-              placeholder="trait_type"
-              id="trait_type"
-              value={date.trait_type}
-              onChange={(e) => {
-                editTrait(i, e.target.value);
-              }}
-            />
-            <input
-              type="date"
-              name="date"
-              id="date"
-              onChange={(e) => editDateValue(i, e.target.value)}
-              value={convertedDate}
-              className={`${INPUTSTYLE} mr-10`}
-            />
-            <RemoveCircle index={i} deleteFn={deleteDates} />
-          </div>
-        );
-      })}
+      <AnimatePresence>
+        {dates.map((date, i) => {
+          let dateInSeconds = new Date(date.value * 1000);
+          let [convertedDate] = dateInSeconds.toISOString().split("T");
+          return (
+            <motion.div
+              initial={{ y: -100 }}
+              animate={{ y: 0 }}
+              exit={{ opacity: 0 }}
+              key={i}
+              className="mb-2"
+            >
+              <input
+                className={`${INPUTSTYLE} mr-10`}
+                type="text"
+                name="trait_type"
+                placeholder="trait_type"
+                id="trait_type"
+                value={date.trait_type}
+                onChange={(e) => {
+                  editTrait(i, e.target.value);
+                }}
+              />
+              <input
+                type="date"
+                name="date"
+                id="date"
+                onChange={(e) => editDateValue(i, e.target.value)}
+                value={convertedDate}
+                className={`${INPUTSTYLE} mr-10`}
+              />
+              <RemoveCircle index={i} deleteFn={deleteDates} />
+            </motion.div>
+          );
+        })}
+      </AnimatePresence>
     </div>
   );
 };
