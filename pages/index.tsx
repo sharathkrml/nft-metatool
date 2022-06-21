@@ -9,7 +9,7 @@ import {INPUTSTYLE} from '../styles'
 
 const Home: NextPage = () => {
   const [filename,setFilename] = useState<string>("")
-  const [basics, setBasics] = useState<Basics>({})
+  const [basics, setBasics] = useState<Basics>({name:"Lorem Ipsum #1",description:"Friendly OpenSea Creature that enjoys long swims in the ocean."})
   const [media, setMedia] = useState<Media>({
     image: "ipfs://QmPsb1jthhrqqRjT6FCFbi7ZSHaJEF1Jdd43xVVnPbyTzN",
     // animation_url: "ipfs://QmRVykoK57WXkJWojKnzf66zeUpEGhBj8u19emJSrjWa9m",

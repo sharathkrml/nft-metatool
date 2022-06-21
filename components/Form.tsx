@@ -36,6 +36,7 @@ const Form = ({
         <input
           type="text"
           className={`${INPUTSTYLE} w-8/12 h-8`}
+          value={basics.name}
           onChange={(e) =>
             setBasics((prevMetaData) => ({
               ...prevMetaData,
@@ -73,6 +74,7 @@ const Form = ({
         </label>
         <textarea
           className={`${INPUTSTYLE} w-8/12 h-20`}
+          value={basics.description}
           onChange={(e) =>
             setBasics((prevMetaData) => ({
               ...prevMetaData,

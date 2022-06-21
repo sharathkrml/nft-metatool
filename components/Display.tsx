@@ -16,16 +16,9 @@ const Display = ({
   return (
     <div className="text-white px-10 py-5">
       <ExternalLink external_url={basics?.external_url} />
-      <div className="mt-3 mb-5 text-4xl text-[#E5E8EB]">
-        {basics?.name || "Lorem Ipsum #1"}
-      </div>
+      <div className="mt-3 mb-5 text-4xl text-[#E5E8EB]">{basics.name}</div>
       <MediaPreview media={media} />
-      <Description
-        description={
-          basics?.description ||
-          "Friendly OpenSea Creature that enjoys long swims in the ocean."
-        }
-      />
+      <Description description={basics.description} />
       <Attributes attributes={{ properties, stats, levels, boosts, dates }} />
     </div>
   );

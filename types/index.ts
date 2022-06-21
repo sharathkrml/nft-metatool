@@ -1,8 +1,8 @@
 import React, { Dispatch, SetStateAction } from "react";
 
 export interface Basics {
-  name?: string;
-  description?: string;
+  name: string;
+  description: string;
   external_url?: string;
 }
 export type Media = {
