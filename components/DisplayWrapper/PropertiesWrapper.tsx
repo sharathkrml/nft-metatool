@@ -1,6 +1,7 @@
 import PropertiesPreview from "../Display/Properties";
 // box that covers all properties
 import { Properties } from "../../types";
+import { AnimatePresence } from "framer-motion";
 function PropertiesWrapper({
   properties,
 }: {
@@ -8,13 +9,15 @@ function PropertiesWrapper({
 }) {
   return (
     <div className="grid grid-cols-3 gap-1 border-[1px] border-black p-2">
-      {properties?.map((property, i) => (
-        <PropertiesPreview
-          key={i}
-          trait_type={property.trait_type}
-          value={property.value}
-        />
-      ))}{" "}
+      <AnimatePresence>
+        {properties?.map((property, i) => (
+          <PropertiesPreview
+            key={i}
+            trait_type={property.trait_type}
+            value={property.value}
+          />
+        ))}
+      </AnimatePresence>
     </div>
   );
 }
