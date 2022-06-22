@@ -96,10 +96,10 @@ const Home: NextPage = () => {
           <span className="text-2xl">NFT MetaTool🚀</span>
           <div className="flex">
             <input type="text" className={`${INPUTSTYLE} w-28`} placeholder="1.json" value={filename} onChange={(e)=>setFilename(e.target.value)} />
-            <button onClick={downloadJson} className="border-2 hover:border-[#205ADC] border-[#4A5357] text-[#4A5357] hover:text-[#205ADC] ml-2 rounded-full">
+            <button onClick={downloadJson} className="border-2 hover:border-[#205ADC] border-[#205ADC] text-[#205ADC] hover:scale-105 ml-2 rounded-full">
               <DownloadIcon color="inherit" className="w-8 h-8"/>
             </button>
-            {/* <button className="border-2 ml-2 rounded-md border-[#4A5357] text-[#4A5357] hover:text-[#205ADC] hover:border-[#205ADC]">MINT</button> */}
+            <button className="border-2 ml-2 rounded-md border-[#205ADC] text-[#205ADC] hover:scale-105 hover:border-[#205ADC]">MINT</button>
           </div>
         </div>
       </nav>
