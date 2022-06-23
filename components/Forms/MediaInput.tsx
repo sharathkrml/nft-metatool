@@ -3,8 +3,7 @@ import { create as ipfsHttpClient, Options } from "ipfs-http-client";
 import { Line } from "rc-progress";
 import { useState } from "react";
 import { Preview } from "@mui/icons-material";
-const INPUTSTYLE =
-  "bg-[#202225] border-2 border-[#4A5357] px-2 text-[#EDEDEE] focus:border-[#205ADC] rounded-md focus:outline-none";
+import { INPUTSTYLE } from "../../styles";
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0" as Options);
 
 const MediaInput = ({ media, setMedia }: MediaSetter) => {

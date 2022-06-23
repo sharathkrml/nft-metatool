@@ -6,6 +6,9 @@ import Form from "../components/Form";
 import Display from "../components/Display";
 import { useState, useEffect } from "react";
 import {INPUTSTYLE} from '../styles'
+import { create as ipfsHttpClient,Options } from "ipfs-http-client"
+
+const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0" as Options);
 
 const Home: NextPage = () => {
   const [filename,setFilename] = useState<string>("")
@@ -82,7 +85,22 @@ const Home: NextPage = () => {
     link.href = jsonString;
     link.download = filename;
     link.click();
-}
+  }
+  const uploadJsonToIPFS = async() => {
+    let metadata = { ...basics, ...media, attributes: [...dates, ...boosts, ...levels, ...stats, ...properties] }
+    try { 
+      let objectString = JSON.stringify(metadata);
+         const added = await client.add(objectString, {
+          progress: (prog) =>
+            console.log(prog)
+         });
+      let url = `https://ipfs.infura.io/ipfs/${added.path}`
+      console.log(url)
+    }
+    catch (e) {
+      console.log(e)
+    }
+  }
   return (
     <div>
       <Head>
@@ -99,7 +117,7 @@ const Home: NextPage = () => {
             <button onClick={downloadJson} className="border-2 hover:border-[#205ADC] border-[#205ADC] text-[#205ADC] hover:scale-105 ml-2 rounded-full">
               <DownloadIcon color="inherit" className="w-8 h-8"/>
             </button>
-            <button className="border-2 ml-2 rounded-md border-[#205ADC] text-[#205ADC] hover:scale-105 hover:border-[#205ADC]">MINT</button>
+            <button onClick={uploadJsonToIPFS} className="border-2 ml-2 rounded-md border-[#205ADC] text-[#205ADC] hover:scale-105 hover:border-[#205ADC]">MINT</button>
           </div>
         </div>
       </nav>
