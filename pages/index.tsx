@@ -1,83 +1,98 @@
-import type { NextPage } from "next";
 import Head from "next/head";
 import { Properties, Stats, Level, Boost, Date, Basics, Media } from "../types";
-import DownloadIcon from '@mui/icons-material/Download';
+import DownloadIcon from "@mui/icons-material/Download";
 import Form from "../components/Form";
 import Display from "../components/Display";
-import { useState, useEffect } from "react";
-import {INPUTSTYLE} from '../styles'
-import { create as ipfsHttpClient,Options } from "ipfs-http-client"
+import { useState, useEffect, useRef } from "react";
+import { INPUTSTYLE } from "../styles";
+import { create as ipfsHttpClient, Options } from "ipfs-http-client";
+import Web3Modal from "web3modal";
+import { providers } from "ethers";
+import Core from "web3modal";
 
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0" as Options);
 
-const Home: NextPage = () => {
-  const [filename,setFilename] = useState<string>("")
-  const [basics, setBasics] = useState<Basics>({name:"Lorem Ipsum #1",description:"Friendly OpenSea Creature that enjoys long swims in the ocean."})
+const Home = () => {
+  const web3modalRef = useRef<Core>();
+  const [filename, setFilename] = useState<string>("");
+  const [basics, setBasics] = useState<Basics>({
+    name: "Lorem Ipsum #1",
+    description:
+      "Friendly OpenSea Creature that enjoys long swims in the ocean.",
+  });
   const [media, setMedia] = useState<Media>({
     image: "ipfs://QmPsb1jthhrqqRjT6FCFbi7ZSHaJEF1Jdd43xVVnPbyTzN",
-    // animation_url: "ipfs://QmRVykoK57WXkJWojKnzf66zeUpEGhBj8u19emJSrjWa9m",
     background_color: "251A52",
-    // youtube_url:"https://www.youtube.com/watch?v=tPEE9ZwTmy0"
-  })
-  const [properties, setProperties] = useState<Properties[]>([{
-    "trait_type": "Base",
-    "value": "Starfish"
-  },
-  {
-    "trait_type": "Eyes",
-    "value": "Big"
-  },
-  {
-    "trait_type": "Mouth",
-    "value": "Surprised"
-  }])
+  });
+  const [account, setAccount] = useState("");
+  const [properties, setProperties] = useState<Properties[]>([
+    {
+      trait_type: "Base",
+      value: "Starfish",
+    },
+    {
+      trait_type: "Eyes",
+      value: "Big",
+    },
+    {
+      trait_type: "Mouth",
+      value: "Surprised",
+    },
+  ]);
   const [stats, setStats] = useState<Stats[]>([
     {
-      "display_type": "number",
-      "trait_type": "Generation",
-      "value": 2,
-      max_value: 50
+      display_type: "number",
+      trait_type: "Generation",
+      value: 2,
+      max_value: 50,
     },
     {
-      "display_type": "number",
-      "trait_type": "Level",
-      "value": 10,
-    }
-  ])
+      display_type: "number",
+      trait_type: "Level",
+      value: 10,
+    },
+  ]);
   const [levels, setLevels] = useState<Level[]>([
     {
-      "trait_type": "Level",
-      "value": 5,
-      "max_value": 100
+      trait_type: "Level",
+      value: 5,
+      max_value: 100,
     },
     {
-      "trait_type": "Stamina",
-      "value": 1.4
-    }
-  ])
+      trait_type: "Stamina",
+      value: 1.4,
+    },
+  ]);
   const [boosts, setBoosts] = useState<Boost[]>([
     {
-      "display_type": "boost_number",
-      "trait_type": "Aqua Power",
-      "value": 40
+      display_type: "boost_number",
+      trait_type: "Aqua Power",
+      value: 40,
     },
     {
-      "display_type": "boost_percentage",
-      "trait_type": "Stamina Increase",
-      "value": 10
-    }
-  ])
-  const [dates, setDates] = useState<Date[]>([{
-    "display_type": "date",
-    "trait_type": "birthday",
-    "value": 1546360800
-  }, {
-    "display_type": "date",
-    "trait_type": "1st anniversary",
-    "value": 1577920800
-  }])
-  const downloadJson = ()=> {
-    let metadata = { ...basics, ...media ,attributes:[...dates,...boosts,...levels,...stats,...properties]}
+      display_type: "boost_percentage",
+      trait_type: "Stamina Increase",
+      value: 10,
+    },
+  ]);
+  const [dates, setDates] = useState<Date[]>([
+    {
+      display_type: "date",
+      trait_type: "birthday",
+      value: 1546360800,
+    },
+    {
+      display_type: "date",
+      trait_type: "1st anniversary",
+      value: 1577920800,
+    },
+  ]);
+  const downloadJson = () => {
+    let metadata = {
+      ...basics,
+      ...media,
+      attributes: [...dates, ...boosts, ...levels, ...stats, ...properties],
+    };
     const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
       JSON.stringify(metadata)
     )}`;
@@ -85,22 +100,48 @@ const Home: NextPage = () => {
     link.href = jsonString;
     link.download = filename;
     link.click();
-  }
-  const uploadJsonToIPFS = async() => {
-    let metadata = { ...basics, ...media, attributes: [...dates, ...boosts, ...levels, ...stats, ...properties] }
-    try { 
+  };
+  const uploadJsonToIPFS = async () => {
+    let metadata = {
+      ...basics,
+      ...media,
+      attributes: [...dates, ...boosts, ...levels, ...stats, ...properties],
+    };
+    try {
       let objectString = JSON.stringify(metadata);
-         const added = await client.add(objectString, {
-          progress: (prog) =>
-            console.log(prog)
-         });
-      let url = `https://ipfs.infura.io/ipfs/${added.path}`
-      console.log(url)
+      const added = await client.add(objectString, {
+        progress: (prog) => console.log(prog),
+      });
+      let url = `https://ipfs.infura.io/ipfs/${added.path}`;
+      console.log(url);
+    } catch (e) {
+      console.log(e);
     }
-    catch (e) {
-      console.log(e)
+  };
+  useEffect(() => {
+    if (!account) {
+      web3modalRef.current = new Web3Modal();
     }
-  }
+  }, [account]);
+  const connectToWallet = async () => {
+    try {
+      let signer = await getProviderOrSigner(true);
+      setAccount(await signer.getAddress());
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const getProviderOrSigner = async (needSigner = false) => {
+    const connection = await web3modalRef.current.connect();
+    const provider: providers.Web3Provider = new providers.Web3Provider(
+      connection
+    );
+    if (needSigner) {
+      const signer: providers.JsonRpcSigner = provider.getSigner();
+      return signer;
+    }
+    return provider;
+  };
   return (
     <div>
       <Head>
@@ -110,36 +151,78 @@ const Home: NextPage = () => {
       </Head>
 
       <nav>
-        <div className="bg-[#04111D] p-4 text-xl flex justify-between item-center text-slate-300">
-          <span className="text-2xl">NFT MetaTool🚀</span>
+        <div className="fixed w-full z-50 bg-[#04111D] p-4 text-xl flex justify-between item-center text-slate-300">
+          <span className="text-2xl flex items-center justify-center">
+            NFT MetaTool🚀
+          </span>
           <div className="flex">
-            <input type="text" className={`${INPUTSTYLE} w-28`} placeholder="1.json" value={filename} onChange={(e)=>setFilename(e.target.value)} />
-            <button onClick={downloadJson} className="border-2 hover:border-[#205ADC] border-[#205ADC] text-[#205ADC] hover:scale-105 ml-2 rounded-full">
-              <DownloadIcon color="inherit" className="w-8 h-8"/>
+            <input
+              type="text"
+              className={`${INPUTSTYLE} w-40`}
+              placeholder="1.json"
+              value={filename}
+              onChange={(e) => setFilename(e.target.value)}
+            />
+            <button
+              onClick={downloadJson}
+              className="border-2 w-10 h-10 hover:border-[#205ADC] border-[#205ADC] text-[#205ADC] hover:scale-105 ml-2 rounded-full"
+            >
+              <DownloadIcon color="inherit" className="w-8 h-8" />
             </button>
-            <button onClick={uploadJsonToIPFS} className="border-2 ml-2 rounded-md border-[#205ADC] text-[#205ADC] hover:scale-105 hover:border-[#205ADC]">MINT</button>
+            {account ? (
+              <div className="border-2 ml-2 h-10 text-sm flex item-center justify-center py-2 rounded-md border-[#205ADC] text-[#205ADC]">
+                {account.substring(0, 10) + "..."}
+              </div>
+            ) : (
+              <button
+                onClick={connectToWallet}
+                className="border-2 ml-2 h-10 text-sm rounded-md border-[#205ADC] text-[#205ADC] hover:scale-105 hover:border-[#205ADC] px-1 leading-3"
+              >
+                Connect To
+                <br /> Wallet
+              </button>
+            )}
+            {account && (
+              <>
+                <button
+                  onClick={connectToWallet}
+                  className="border-2 ml-2 h-10 text-sm rounded-md border-[#205ADC] text-[#205ADC] hover:scale-105 hover:border-[#205ADC] px-1 leading-3"
+                >
+                  Mint
+                </button>
+                <button
+                  onClick={connectToWallet}
+                  className="border-2 ml-2 h-10 text-sm rounded-md border-[#205ADC] text-[#205ADC] hover:scale-105 hover:border-[#205ADC] px-1 leading-3"
+                >
+                  Load
+                  <br />
+                  <span className="text-xs">Previous</span>
+                </button>
+              </>
+            )}
           </div>
         </div>
       </nav>
-      <div className="grid bg-[#202225] grid-cols-2 min-h-screen">
-        <aside className=""><Form
-          basics={basics}
-          setBasics={setBasics}
-          properties={properties}
-          setProperties={setProperties}
-          stats={stats}
-          setStats={setStats}
-          levels={levels}
-          setLevels={setLevels}
-          boosts={boosts}
-          setBoosts={setBoosts}
-          dates={dates}
-          setDates={setDates}
-          media={media}
-          setMedia={setMedia}
-        /></aside>
+      <div className="grid pt-14 bg-[#202225] grid-cols-2 min-h-screen">
+        <aside className="">
+          <Form
+            basics={basics}
+            setBasics={setBasics}
+            properties={properties}
+            setProperties={setProperties}
+            stats={stats}
+            setStats={setStats}
+            levels={levels}
+            setLevels={setLevels}
+            boosts={boosts}
+            setBoosts={setBoosts}
+            dates={dates}
+            setDates={setDates}
+            media={media}
+            setMedia={setMedia}
+          />
+        </aside>
         <section className=" text-white">
-
           <Display
             basics={basics}
             properties={properties}
@@ -151,7 +234,6 @@ const Home: NextPage = () => {
           />
         </section>
       </div>
-
     </div>
   );
 };

@@ -13,13 +13,15 @@
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.8.3",
     "@mui/material": "^5.8.3",
+    "ethers": "^5.6.9",
     "framer-motion": "^6.3.11",
     "ipfs-http-client": "^57.0.1",
     "next": "12.1.6",
     "rc-progress": "^3.3.3",
     "react": "18.1.0",
     "react-dom": "18.1.0",
-    "react-showdown": "^2.3.1"
+    "react-showdown": "^2.3.1",
+    "web3modal": "^1.9.8"
   },
   "devDependencies": {
     "@types/node": "17.0.40",
