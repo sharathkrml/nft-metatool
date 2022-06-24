@@ -1,7 +1,7 @@
 import React from "react";
 import { Subject } from "@mui/icons-material";
 import MarkdownView from "react-showdown";
-function Description({ description }: { description: string }) {
+function Description({ description = "" }: { description?: string }) {
   return (
     <div className=" mt-2">
       <div className="flex p-4 border-[1px] border-black bg-[#262B2F] rounded-t-md">
