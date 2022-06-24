@@ -13,7 +13,6 @@ function MediaPreview({ media }: { media: Media }) {
     if (youtube_url) {
       let converted =
         "https://www.youtube.com/embed/" + youtube_url.split("v=")[1];
-      console.log(converted);
       return converted;
     } else {
       return "";

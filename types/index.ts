@@ -2,15 +2,15 @@ import React, { Dispatch, SetStateAction } from "react";
 
 export interface Basics {
   name: string;
-  description: string;
+  description?: string;
   external_url?: string;
 }
 export type Media = {
-  background_color: string;
+  background_color?: string;
   image?: string;
   animation_url?: string;
   youtube_url?: string;
-}
+};
 
 export type Properties = {
   trait_type: string;
@@ -48,17 +48,17 @@ export type AttributeWrapperProps = {
 };
 
 export type InputMetaData = DisplayMetaData & {
-  setBasics: Dispatch<SetStateAction<Basics>>
-  setProperties: Dispatch<SetStateAction<Properties[]>>
-  setStats: Dispatch<SetStateAction<Stats[]>>
-  setLevels: Dispatch<SetStateAction<Level[]>>
-  setBoosts: Dispatch<SetStateAction<Boost[]>>
-  setDates: Dispatch<SetStateAction<Date[]>>
-  setMedia: Dispatch<SetStateAction<Media>>
+  setBasics: Dispatch<SetStateAction<Basics>>;
+  setProperties: Dispatch<SetStateAction<Properties[]>>;
+  setStats: Dispatch<SetStateAction<Stats[]>>;
+  setLevels: Dispatch<SetStateAction<Level[]>>;
+  setBoosts: Dispatch<SetStateAction<Boost[]>>;
+  setDates: Dispatch<SetStateAction<Date[]>>;
+  setMedia: Dispatch<SetStateAction<Media>>;
 };
 export type DisplayMetaData = Attributes & {
   basics: Basics;
-  media: Media
+  media: Media;
 };
 export type Attributes = {
   properties: Properties[];
@@ -79,19 +79,19 @@ export type StatsSetter = {
 export type LevelsSetter = {
   levels: Level[];
   setLevels: Dispatch<SetStateAction<Level[]>>;
-}
+};
 export type BoostSetter = {
   boosts: Boost[];
   setBoosts: Dispatch<SetStateAction<Boost[]>>;
-}
+};
 export type DateSetter = {
-  dates: Date[]
-  setDates: Dispatch<SetStateAction<Date[]>>
-}
+  dates: Date[];
+  setDates: Dispatch<SetStateAction<Date[]>>;
+};
 export type MediaSetter = {
-  media: Media,
-  setMedia: Dispatch<SetStateAction<Media>>
-}
+  media: Media;
+  setMedia: Dispatch<SetStateAction<Media>>;
+};
 export type Progress = {
   statusImage: "initial" | "uploading" | "completed";
   statusVideo: "initial" | "uploading" | "completed";

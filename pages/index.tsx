@@ -3,13 +3,13 @@ import { Properties, Stats, Level, Boost, Date, Basics, Media } from "../types";
 import DownloadIcon from "@mui/icons-material/Download";
 import Form from "../components/Form";
 import Display from "../components/Display";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { INPUTSTYLE } from "../styles";
 import { create as ipfsHttpClient, Options } from "ipfs-http-client";
 import Web3Modal from "web3modal";
-import { providers } from "ethers";
+import { providers, Contract } from "ethers";
 import Core from "web3modal";
-
+import { ABI, Address } from "../contract";
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0" as Options);
 
 const Home = () => {
@@ -87,12 +87,16 @@ const Home = () => {
       value: 1577920800,
     },
   ]);
-  const downloadJson = () => {
-    let metadata = {
+  const metadata = useMemo(
+    () => ({
       ...basics,
       ...media,
       attributes: [...dates, ...boosts, ...levels, ...stats, ...properties],
-    };
+    }),
+    [basics, media, dates, boosts, levels, stats, properties]
+  );
+
+  const downloadJson = () => {
     const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
       JSON.stringify(metadata)
     )}`;
@@ -101,23 +105,6 @@ const Home = () => {
     link.download = filename;
     link.click();
   };
-  const uploadJsonToIPFS = async () => {
-    let metadata = {
-      ...basics,
-      ...media,
-      attributes: [...dates, ...boosts, ...levels, ...stats, ...properties],
-    };
-    try {
-      let objectString = JSON.stringify(metadata);
-      const added = await client.add(objectString, {
-        progress: (prog) => console.log(prog),
-      });
-      let url = `https://ipfs.infura.io/ipfs/${added.path}`;
-      console.log(url);
-    } catch (e) {
-      console.log(e);
-    }
-  };
   useEffect(() => {
     if (!account) {
       web3modalRef.current = new Web3Modal();
@@ -125,22 +112,140 @@ const Home = () => {
   }, [account]);
   const connectToWallet = async () => {
     try {
-      let signer = await getProviderOrSigner(true);
+      let signer = (await getProviderOrSigner(true)) as providers.JsonRpcSigner;
       setAccount(await signer.getAddress());
     } catch (e) {
       console.log(e);
     }
   };
-  const getProviderOrSigner = async (needSigner = false) => {
-    const connection = await web3modalRef.current.connect();
-    const provider: providers.Web3Provider = new providers.Web3Provider(
-      connection
-    );
-    if (needSigner) {
-      const signer: providers.JsonRpcSigner = provider.getSigner();
-      return signer;
+  const getProviderOrSigner = async (
+    needSigner = false
+  ): Promise<providers.Web3Provider | providers.JsonRpcSigner | null> => {
+    if (web3modalRef.current) {
+      const connection = await web3modalRef.current.connect();
+      const provider: providers.Web3Provider = new providers.Web3Provider(
+        connection
+      );
+      if (needSigner) {
+        const signer: providers.JsonRpcSigner = provider.getSigner();
+        return signer;
+      }
+      return provider;
     }
-    return provider;
+    return null;
+  };
+  const ContractProviderOrSigner = async (needSigner = false) => {
+    let ProviderOrSigner = (await getProviderOrSigner(needSigner)) as
+      | providers.Web3Provider
+      | providers.JsonRpcSigner;
+    return new Contract(Address, ABI, ProviderOrSigner);
+  };
+  const mintOrUpdate = async () => {
+    try {
+      let objectString = JSON.stringify(metadata);
+      const added = await client.add(objectString, {
+        progress: (prog) => console.log(prog),
+      });
+      let url = `ipfs://${added.path}`;
+      let MetaTool = await ContractProviderOrSigner(true);
+      let txn = await MetaTool.mintOrUpdate(url);
+      await txn.wait();
+      console.log(txn);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const convertedMedia = (media: string) => {
+    if (media.startsWith("ipfs://")) {
+      return `https://ipfs.infura.io/ipfs/${media.split("ipfs://")[1]}`;
+    }
+    return media;
+  };
+
+  const loadPrevious = async () => {
+    try {
+      let MetaTool = await ContractProviderOrSigner();
+      let id = await MetaTool.ownedNft(account);
+      let uri = await MetaTool.tokenURI(id);
+      let uriConverted = convertedMedia(uri);
+      let res = await fetch(uriConverted);
+      let metadata = await res.json();
+      setBasics({
+        name: metadata.name,
+        description: metadata.description,
+        external_url: metadata.external_url,
+      });
+      setMedia({
+        animation_url: metadata.animation_url,
+        background_color: metadata.background_color,
+        image: metadata.image,
+        youtube_url: metadata.youtube_url,
+      });
+      if (metadata.attributes) {
+        setDates([]);
+        setBoosts([]);
+        setStats([]);
+        setProperties([]);
+        setLevels([]);
+        metadata.attributes.forEach((attr: any) => {
+          if (!attr.display_type && typeof attr.value === "string") {
+            setProperties((prevProperties) => [
+              ...prevProperties,
+              {
+                trait_type: attr.trait_type,
+                value: attr.value,
+              },
+            ]);
+          }
+          if (!attr.display_type && typeof attr.value === "number") {
+            console.log("level", attr);
+            setLevels((prevLevels) => [
+              ...prevLevels,
+              {
+                trait_type: attr.trait_type,
+                value: attr.value,
+                max_value: attr.max_value,
+              },
+            ]);
+          }
+          if (attr.display_type && attr.display_type === "date") {
+            setDates((prevDates) => [
+              ...prevDates,
+              {
+                display_type: "date",
+                trait_type: attr.trait_type,
+                value: attr.value,
+              },
+            ]);
+          }
+          if (attr.display_type && attr.display_type === "number") {
+            console.log("stat", attr);
+
+            setStats((prevStats) => [
+              ...prevStats,
+              {
+                display_type: "number",
+                trait_type: attr.trait_type,
+                value: attr.value,
+                max_value: attr.max_value,
+              },
+            ]);
+          }
+          if (attr.display_type && attr.display_type.startsWith("boost")) {
+            setBoosts((prevBoosts) => [
+              ...prevBoosts,
+              {
+                display_type: attr.display_type,
+                trait_type: attr.trait_type,
+                value: attr.value,
+              },
+            ]);
+          }
+        });
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
   return (
     <div>
@@ -185,13 +290,13 @@ const Home = () => {
             {account && (
               <>
                 <button
-                  onClick={connectToWallet}
+                  onClick={mintOrUpdate}
                   className="border-2 ml-2 h-10 text-sm rounded-md border-[#205ADC] text-[#205ADC] hover:scale-105 hover:border-[#205ADC] px-1 leading-3"
                 >
                   Mint
                 </button>
                 <button
-                  onClick={connectToWallet}
+                  onClick={loadPrevious}
                   className="border-2 ml-2 h-10 text-sm rounded-md border-[#205ADC] text-[#205ADC] hover:scale-105 hover:border-[#205ADC] px-1 leading-3"
                 >
                   Load
