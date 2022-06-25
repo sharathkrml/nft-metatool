@@ -25,6 +25,7 @@ const Home = () => {
     background_color: "251A52",
   });
   const [account, setAccount] = useState("");
+  const [nftId, setNftId] = useState(0);
   const [properties, setProperties] = useState<Properties[]>([
     {
       trait_type: "Base",
@@ -108,6 +109,8 @@ const Home = () => {
   useEffect(() => {
     if (!account) {
       web3modalRef.current = new Web3Modal();
+    } else {
+      getNftId();
     }
   }, [account]);
   const connectToWallet = async () => {
@@ -156,6 +159,7 @@ const Home = () => {
       let MetaTool = await ContractProviderOrSigner(true);
       let txn = await MetaTool.mintOrUpdate(url);
       await txn.wait();
+      getNftId();
       console.log(txn);
     } catch (e) {
       console.log(e);
@@ -168,11 +172,18 @@ const Home = () => {
     return media;
   };
 
+  const getNftId = async () => {
+    try {
+      let MetaTool = await ContractProviderOrSigner();
+      setNftId(await MetaTool.ownedNft(account));
+    } catch (e) {
+      console.log(e);
+    }
+  };
   const loadPrevious = async () => {
     try {
       let MetaTool = await ContractProviderOrSigner();
-      let id = await MetaTool.ownedNft(account);
-      let uri = await MetaTool.tokenURI(id);
+      let uri = await MetaTool.tokenURI(nftId);
       let uriConverted = convertedMedia(uri);
       let res = await fetch(uriConverted);
       let metadata = await res.json();
@@ -299,16 +310,28 @@ const Home = () => {
                   onClick={mintOrUpdate}
                   className="border-2 ml-2 h-10 text-sm rounded-md border-[#205ADC] text-[#205ADC] hover:scale-105 hover:border-[#205ADC] px-1 leading-3"
                 >
-                  Mint
+                  {nftId == 0 ? "Mint" : "Update"}
                 </button>
-                <button
-                  onClick={loadPrevious}
-                  className="border-2 ml-2 h-10 text-sm rounded-md border-[#205ADC] text-[#205ADC] hover:scale-105 hover:border-[#205ADC] px-1 leading-3"
-                >
-                  Load
-                  <br />
-                  <span className="text-xs">Previous</span>
-                </button>
+                {nftId != 0 && (
+                  <>
+                    <button
+                      onClick={loadPrevious}
+                      className="border-2 ml-2 h-10 text-sm rounded-md border-[#205ADC] text-[#205ADC] hover:scale-105 hover:border-[#205ADC] px-1 leading-3"
+                    >
+                      Load
+                      <br />
+                      <span className="text-xs">Previous</span>
+                    </button>
+                    <a
+                      href={`https://testnets.opensea.io/assets/mumbai/0xac00f4ab2e787a292973f3b7137a4767cbb63d2f/${nftId}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="border-2 ml-2 h-10 text-sm rounded-md border-[#205ADC] text-[#205ADC] hover:scale-105 hover:border-[#205ADC] px-1 py-3 leading-3"
+                    >
+                      Opensea🌊
+                    </a>
+                  </>
+                )}
               </>
             )}
           </div>
