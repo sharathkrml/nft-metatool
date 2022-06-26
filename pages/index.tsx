@@ -121,11 +121,11 @@ const Home = () => {
       const provider: providers.Web3Provider = new providers.Web3Provider(
         connection
       );
-      // If user is not connected to the Mumbai network, let them know and throw an error
+      // If user is not connected to the Rinkeby network, let them know and throw an error
       const { chainId } = await provider.getNetwork();
-      if (chainId !== 80001) {
-        window.alert("Change the network to Mumbai");
-        throw new Error("Change network to Mumbai");
+      if (chainId !== 4) {
+        window.alert("Change the network to Rinkeby");
+        throw new Error("Change network to Rinkeby");
       }
       if (needSigner) {
         const signer: providers.JsonRpcSigner = provider.getSigner();
@@ -252,7 +252,7 @@ const Home = () => {
                       <span className="text-xs">Previous</span>
                     </button>
                     <a
-                      href={`https://testnets.opensea.io/assets/mumbai/0xac00f4ab2e787a292973f3b7137a4767cbb63d2f/${nftId}`}
+                      href={`https://testnets.opensea.io/assets/rinkeby/${Address}/${nftId}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="border-2 ml-2 h-10 text-sm rounded-md border-[#205ADC] text-[#205ADC] hover:scale-105 hover:border-[#205ADC] px-1 py-3 leading-3"
