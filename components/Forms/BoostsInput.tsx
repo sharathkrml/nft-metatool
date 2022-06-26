@@ -79,7 +79,7 @@ const BoostsInput = ({ boosts, setBoosts }: BoostSetter) => {
             value={boost.value}
             className={`w-20 mr-2 ${INPUTSTYLE}`}
             onChange={(e) => {
-              editValue(i, parseFloat(e.target.value));
+              editValue(i, parseFloat(e.target.value || ""));
             }}
             placeholder="value"
           />

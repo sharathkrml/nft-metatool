@@ -151,7 +151,12 @@ const Home = () => {
       let MetaTool = await ContractProviderOrSigner(true);
       let txn = await MetaTool.mintOrUpdate(url);
       await txn.wait();
-      getNftId();
+
+      await getNftId();
+      let res = await fetch(
+        `https://testnets-api.opensea.io/api/v1/asset/${Address}/${nftId}/?force_update=true`
+      );
+      console.log(await res.json());
       console.log(txn);
     } catch (e) {
       console.log(e);

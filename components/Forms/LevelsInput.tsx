@@ -75,6 +75,7 @@ const LevelsInput = ({ levels, setLevels }: LevelsSetter) => {
               name="max_value"
               id="max_value"
               value={level.max_value || ""}
+              placeholder="max_value"
               className={`w-28 mr-4 ${INPUTSTYLE}`}
               onChange={(e) => {
                 editMaxValue(i, parseFloat(e.target.value));
