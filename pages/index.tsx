@@ -10,6 +10,7 @@ import Web3Modal from "web3modal";
 import { providers, Contract } from "ethers";
 import Core from "web3modal";
 import { ABI, Address } from "../contract";
+import { convertedMedia, convertMetadata, downloadJson } from "../helpers";
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0" as Options);
 
 const Home = () => {
@@ -97,15 +98,6 @@ const Home = () => {
     [basics, media, dates, boosts, levels, stats, properties]
   );
 
-  const downloadJson = () => {
-    const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
-      JSON.stringify(metadata)
-    )}`;
-    const link = document.createElement("a");
-    link.href = jsonString;
-    link.download = filename;
-    link.click();
-  };
   useEffect(() => {
     if (!account) {
       web3modalRef.current = new Web3Modal();
@@ -165,12 +157,6 @@ const Home = () => {
       console.log(e);
     }
   };
-  const convertedMedia = (media: string) => {
-    if (media.startsWith("ipfs://")) {
-      return `https://ipfs.infura.io/ipfs/${media.split("ipfs://")[1]}`;
-    }
-    return media;
-  };
 
   const getNftId = async () => {
     try {
@@ -187,79 +173,22 @@ const Home = () => {
       let uriConverted = convertedMedia(uri);
       let res = await fetch(uriConverted);
       let metadata = await res.json();
-      setBasics({
-        name: metadata.name,
-        description: metadata.description,
-        external_url: metadata.external_url,
-      });
-      setMedia({
-        animation_url: metadata.animation_url,
-        background_color: metadata.background_color,
-        image: metadata.image,
-        youtube_url: metadata.youtube_url,
-      });
-      if (metadata.attributes) {
-        setDates([]);
-        setBoosts([]);
-        setStats([]);
-        setProperties([]);
-        setLevels([]);
-        metadata.attributes.forEach((attr: any) => {
-          if (!attr.display_type && typeof attr.value === "string") {
-            setProperties((prevProperties) => [
-              ...prevProperties,
-              {
-                trait_type: attr.trait_type,
-                value: attr.value,
-              },
-            ]);
-          }
-          if (!attr.display_type && typeof attr.value === "number") {
-            console.log("level", attr);
-            setLevels((prevLevels) => [
-              ...prevLevels,
-              {
-                trait_type: attr.trait_type,
-                value: attr.value,
-                max_value: attr.max_value,
-              },
-            ]);
-          }
-          if (attr.display_type && attr.display_type === "date") {
-            setDates((prevDates) => [
-              ...prevDates,
-              {
-                display_type: "date",
-                trait_type: attr.trait_type,
-                value: attr.value,
-              },
-            ]);
-          }
-          if (attr.display_type && attr.display_type === "number") {
-            console.log("stat", attr);
-
-            setStats((prevStats) => [
-              ...prevStats,
-              {
-                display_type: "number",
-                trait_type: attr.trait_type,
-                value: attr.value,
-                max_value: attr.max_value,
-              },
-            ]);
-          }
-          if (attr.display_type && attr.display_type.startsWith("boost")) {
-            setBoosts((prevBoosts) => [
-              ...prevBoosts,
-              {
-                display_type: attr.display_type,
-                trait_type: attr.trait_type,
-                value: attr.value,
-              },
-            ]);
-          }
-        });
-      }
+      let {
+        basics,
+        boosts,
+        dates,
+        levels,
+        media,
+        properties,
+        stats,
+      } = convertMetadata(metadata);
+      setBasics(basics);
+      setBoosts(boosts);
+      setDates(dates);
+      setMedia(media);
+      setStats(stats);
+      setProperties(properties);
+      setLevels(levels);
     } catch (e) {
       console.log(e);
     }
@@ -286,7 +215,7 @@ const Home = () => {
               onChange={(e) => setFilename(e.target.value)}
             />
             <button
-              onClick={downloadJson}
+              onClick={() => downloadJson(metadata, filename)}
               className="border-2 w-10 h-10 hover:border-[#205ADC] border-[#205ADC] text-[#205ADC] hover:scale-105 ml-2 rounded-full"
             >
               <DownloadIcon color="inherit" className="w-8 h-8" />

@@ -51,7 +51,7 @@ const PropertiesInput = ({ properties, setProperties }: PropertiesSetter) => {
               name="trait_type"
               placeholder="trait_type"
               id="trait_type"
-              value={property.trait_type}
+              value={property.trait_type || ""}
               onChange={(e) => {
                 editProperty(i, e.target.value);
               }}
@@ -60,7 +60,7 @@ const PropertiesInput = ({ properties, setProperties }: PropertiesSetter) => {
               type="text"
               name="value"
               id="value"
-              value={property.value}
+              value={property.value || ""}
               className={INPUTSTYLE}
               onChange={(e) => {
                 editProperty(i, e.target.value, true);

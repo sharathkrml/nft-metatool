@@ -78,7 +78,7 @@ const MediaInput = ({ media, setMedia }: MediaSetter) => {
                 background_color: e.target.value,
               }))
             }
-            value={background_color}
+            value={background_color || ""}
           />
         </div>
       </div>
@@ -126,7 +126,7 @@ const MediaInput = ({ media, setMedia }: MediaSetter) => {
               name="image"
               className={`${INPUTSTYLE} h-8 w-8/12`}
               id="image"
-              value={image}
+              value={image || ""}
               onChange={(e) =>
                 setMedia((prev) => ({ ...prev, image: e.target.value }))
               }
@@ -199,7 +199,7 @@ const MediaInput = ({ media, setMedia }: MediaSetter) => {
               name="image"
               className={`${INPUTSTYLE} w-8/12 h-8`}
               id="image"
-              value={animation_url}
+              value={animation_url || ""}
               onChange={(e) =>
                 setMedia((prev) => ({ ...prev, animation_url: e.target.value }))
               }

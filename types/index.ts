@@ -1,10 +1,14 @@
 import React, { Dispatch, SetStateAction } from "react";
+export type Metadata = Basics &
+  Media & {
+    attributes: Properties[] & Stats[] & Level[] & Boost[] & Date[];
+  };
 
-export interface Basics {
+export type Basics = {
   name: string;
   description?: string;
   external_url?: string;
-}
+};
 export type Media = {
   background_color?: string;
   image?: string;

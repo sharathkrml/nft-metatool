@@ -1,14 +1,10 @@
 import { Favorite } from "@mui/icons-material";
 import Image from "next/image";
 import { Media } from "../types";
+import { convertedMedia } from "../helpers";
 function MediaPreview({ media }: { media: Media }) {
   let { animation_url, background_color, image, youtube_url } = media;
-  const convertedMedia = (media: string) => {
-    if (media.startsWith("ipfs://")) {
-      return `https://ipfs.infura.io/ipfs/${media.split("ipfs://")[1]}`;
-    }
-    return media;
-  };
+
   const youtubeId = () => {
     if (youtube_url) {
       let converted =

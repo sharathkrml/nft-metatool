@@ -54,7 +54,7 @@ const LevelsInput = ({ levels, setLevels }: LevelsSetter) => {
               name="trait_type"
               placeholder="trait_type"
               id="trait_type"
-              value={level.trait_type}
+              value={level.trait_type || ""}
               onChange={(e) => {
                 editTrait(i, e.target.value);
               }}
@@ -63,7 +63,7 @@ const LevelsInput = ({ levels, setLevels }: LevelsSetter) => {
               type="number"
               name="value"
               id="value"
-              value={level.value}
+              value={level.value || ""}
               className={`w-28 mr-4 ${INPUTSTYLE}`}
               onChange={(e) => {
                 editValue(i, parseFloat(e.target.value));
@@ -74,7 +74,7 @@ const LevelsInput = ({ levels, setLevels }: LevelsSetter) => {
               type="number"
               name="max_value"
               id="max_value"
-              value={level.max_value}
+              value={level.max_value || ""}
               className={`w-28 mr-4 ${INPUTSTYLE}`}
               onChange={(e) => {
                 editMaxValue(i, parseFloat(e.target.value));

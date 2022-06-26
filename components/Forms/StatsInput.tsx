@@ -49,7 +49,7 @@ const StatsInput = ({ stats, setStats }: StatsSetter) => {
               name="trait_type"
               placeholder="trait_type"
               id="trait_type"
-              value={stat.trait_type}
+              value={stat.trait_type || ""}
               onChange={(e) => {
                 editTrait(i, e.target.value);
               }}
@@ -59,7 +59,7 @@ const StatsInput = ({ stats, setStats }: StatsSetter) => {
               name="value"
               id="value"
               className={`w-28 ${INPUTSTYLE} mr-4`}
-              value={stat.value}
+              value={stat.value || ""}
               onChange={(e) => {
                 editValue(i, parseFloat(e.target.value));
               }}
@@ -71,7 +71,7 @@ const StatsInput = ({ stats, setStats }: StatsSetter) => {
               name="value"
               id="value"
               className={`w-28 ${INPUTSTYLE} mr-4`}
-              value={stat.max_value}
+              value={stat.max_value || ""}
               onChange={(e) => {
                 editMaxValue(i, parseFloat(e.target.value));
               }}
