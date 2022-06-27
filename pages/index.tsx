@@ -229,6 +229,9 @@ const Home = () => {
         <div className="fixed w-full z-50 bg-[#04111D] p-4 text-xl flex justify-between item-center text-slate-300">
           <span className="text-2xl flex items-center justify-center">
             NFT MetaTool🚀
+            <span className="bg-[#F2994A] text-xs text-black rounded-lg px-1">
+              Rinkeby
+            </span>
           </span>
           <div className="flex">
             <input
