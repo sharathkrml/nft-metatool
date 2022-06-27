@@ -15,21 +15,29 @@ const StatsInput = ({ stats, setStats }: StatsSetter) => {
     ]);
   };
   const editTrait = (index: number, data: string) => {
+    setExpand((prev) => ({ ...prev, statsExpand: true }));
+
     let newStats = [...stats];
     newStats[index].trait_type = data;
     setStats(newStats);
   };
   const editValue = (index: number, data: number) => {
+    setExpand((prev) => ({ ...prev, statsExpand: true }));
+
     let newStats = [...stats];
     newStats[index].value = data;
     setStats(newStats);
   };
   const editMaxValue = (index: number, data: number) => {
+    setExpand((prev) => ({ ...prev, statsExpand: true }));
+
     let newStats = [...stats];
     newStats[index].max_value = data;
     setStats(newStats);
   };
   const deleteStat = (index: number) => {
+    setExpand((prev) => ({ ...prev, statsExpand: true }));
+
     let newStats = [...stats];
     newStats.splice(index, 1);
     setStats(newStats);

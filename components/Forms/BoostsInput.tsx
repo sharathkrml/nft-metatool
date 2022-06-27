@@ -19,11 +19,15 @@ const BoostsInput = ({ boosts, setBoosts }: BoostSetter) => {
   };
 
   const editTrait = (index: number, data: string) => {
+    setExpand((prev) => ({ ...prev, boostsExpand: true }));
+
     let newboosts = [...boosts];
     newboosts[index].trait_type = data;
     setBoosts(newboosts);
   };
   const editValue = (index: number, data: number) => {
+    setExpand((prev) => ({ ...prev, boostsExpand: true }));
+
     let newboosts = [...boosts];
     newboosts[index].value = data;
     setBoosts(newboosts);
@@ -32,11 +36,15 @@ const BoostsInput = ({ boosts, setBoosts }: BoostSetter) => {
     index: number,
     data: "boost_number" | "boost_percentage"
   ) => {
+    setExpand((prev) => ({ ...prev, boostsExpand: true }));
+
     let newboosts = [...boosts];
     newboosts[index].display_type = data;
     setBoosts(newboosts);
   };
   const deleteBoosts = (index: number) => {
+    setExpand((prev) => ({ ...prev, boostsExpand: true }));
+
     let newboosts = [...boosts];
     newboosts.splice(index, 1);
     setBoosts(newboosts);

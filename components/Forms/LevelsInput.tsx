@@ -20,21 +20,29 @@ const LevelsInput = ({ levels, setLevels }: LevelsSetter) => {
   };
 
   const editTrait = (index: number, data: string) => {
+    setExpand((prev) => ({ ...prev, levelsExpand: true }));
+
     let newlevels = [...levels];
     newlevels[index].trait_type = data;
     setLevels(newlevels);
   };
   const editValue = (index: number, data: number) => {
+    setExpand((prev) => ({ ...prev, levelsExpand: true }));
+
     let newlevels = [...levels];
     newlevels[index].value = data;
     setLevels(newlevels);
   };
   const editMaxValue = (index: number, data: number) => {
+    setExpand((prev) => ({ ...prev, levelsExpand: true }));
+
     let newlevels = [...levels];
     newlevels[index].max_value = data;
     setLevels(newlevels);
   };
   const deleteLevel = (index: number) => {
+    setExpand((prev) => ({ ...prev, levelsExpand: true }));
+
     let newlevels = [...levels];
     newlevels.splice(index, 1);
     setLevels(newlevels);

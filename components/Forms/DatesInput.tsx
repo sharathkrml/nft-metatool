@@ -20,11 +20,15 @@ const DatesInput = ({ dates, setDates }: DateSetter) => {
   };
 
   const editTrait = (index: number, data: string) => {
+    setExpand((prev) => ({ ...prev, datesExpand: true }));
+
     let newDates = [...dates];
     newDates[index].trait_type = data;
     setDates(newDates);
   };
   const editDateValue = (index: number, date: string) => {
+    setExpand((prev) => ({ ...prev, datesExpand: true }));
+
     let dateObj = new Date(date);
     let seconds = dateObj.getTime() / 1000;
     let newDates = [...dates];
@@ -32,6 +36,8 @@ const DatesInput = ({ dates, setDates }: DateSetter) => {
     setDates(newDates);
   };
   const deleteDates = (index: number) => {
+    setExpand((prev) => ({ ...prev, datesExpand: true }));
+
     let newDates = [...dates];
     newDates.splice(index, 1);
     setDates(newDates);

@@ -24,6 +24,8 @@ const PropertiesInput = ({ properties, setProperties }: PropertiesSetter) => {
     data: string,
     value: boolean = false
   ) => {
+    setExpand((prev) => ({ ...prev, propertiesExpand: true }));
+
     let newProperties = [...properties];
     value
       ? (newProperties[index].value = data)
@@ -31,6 +33,8 @@ const PropertiesInput = ({ properties, setProperties }: PropertiesSetter) => {
     setProperties(newProperties);
   };
   const deleteProperty = (index: number) => {
+    setExpand((prev) => ({ ...prev, propertiesExpand: true }));
+
     let newProperties = [...properties];
     newProperties.splice(index, 1);
     setProperties(newProperties);

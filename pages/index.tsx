@@ -313,7 +313,7 @@ const Home = () => {
         <Toaster />
       </div>
       <Expand>
-        <div className="grid pt-14 bg-[#202225] grid-cols-2 min-h-screen">
+        <div className="grid pt-24 bg-[#202225] grid-cols-2 min-h-screen">
           <aside className="">
             <Form
               basics={basics}
