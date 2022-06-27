@@ -106,12 +106,21 @@ const Home = () => {
       web3modalRef.current = new Web3Modal();
     } else {
       TransferEventListener();
+      getNftId();
     }
   }, [account]);
   const connectToWallet = async () => {
     try {
       let signer = (await getProviderOrSigner(true)) as providers.JsonRpcSigner;
       setAccount(await signer.getAddress());
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const getNftId = async () => {
+    try {
+      let MetaTool = await ContractProviderOrSigner();
+      setNftId(await MetaTool.ownedNft(account));
     } catch (e) {
       console.log(e);
     }
@@ -147,6 +156,7 @@ const Home = () => {
   const TransferEventListener = async () => {
     let MetaTool = await ContractProviderOrSigner();
     MetaTool.on("Transfer", (from, to, tokenId) => {
+      console.log("Transfer", from, to, tokenId);
       if (to === account) {
         setNftId(tokenId);
       }
@@ -178,6 +188,7 @@ const Home = () => {
         error: <b>Transaction Failed.</b>,
       });
       console.log(txn);
+      await getNftId();
     } catch (e) {
       console.log(e);
     }
