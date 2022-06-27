@@ -19,10 +19,6 @@ const Expand = ({ children }: { children: React.ReactNode }) => {
     datesExpand: false,
     detailExpand: true,
   });
-  useEffect(() => {
-    console.log(expand);
-  }, [expand]);
-
   return (
     <ExpandContext.Provider value={[expand, setExpand]}>
       {children}

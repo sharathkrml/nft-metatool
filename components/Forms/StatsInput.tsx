@@ -3,9 +3,12 @@ import AttributesInputHead from "./AttributesInputHead";
 import { StatsSetter } from "../../types";
 import RemoveCircle from "../RemoveCircle";
 import { INPUTSTYLE } from "../../styles";
+import { useExpand } from "../../context/Expand";
 import { motion, AnimatePresence } from "framer-motion";
 const StatsInput = ({ stats, setStats }: StatsSetter) => {
+  const [, setExpand] = useExpand();
   const addStats = () => {
+    setExpand((prev) => ({ ...prev, statsExpand: true }));
     setStats((prev) => [
       ...prev,
       { display_type: "number", trait_type: "", value: 0 },
@@ -39,7 +42,7 @@ const StatsInput = ({ stats, setStats }: StatsSetter) => {
           <motion.div
             initial={{ x: -100 }}
             animate={{ x: 0 }}
-            exit={{ scale: 0 }}
+            exit={{ opacity: 0 }}
             key={i}
             className="flex mb-2 items-center justify-center"
           >

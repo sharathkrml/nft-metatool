@@ -3,9 +3,12 @@ import AttributesInputHead from "./AttributesInputHead";
 import { LevelsSetter } from "../../types";
 import RemoveCircle from "../RemoveCircle";
 import { INPUTSTYLE } from "../../styles";
+import { useExpand } from "../../context/Expand";
 import { motion, AnimatePresence } from "framer-motion";
 const LevelsInput = ({ levels, setLevels }: LevelsSetter) => {
+  const [, setExpand] = useExpand();
   const addLevels = () => {
+    setExpand((prev) => ({ ...prev, levelsExpand: true }));
     setLevels((prev) => [
       ...prev,
       {

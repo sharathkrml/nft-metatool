@@ -2,11 +2,13 @@ import RemoveCircle from "../RemoveCircle";
 import AttributesInputHead from "./AttributesInputHead";
 import { DateSetter } from "../../types";
 import { INPUTSTYLE } from "../../styles";
+import { useExpand } from "../../context/Expand";
 import { motion, AnimatePresence } from "framer-motion";
 const DatesInput = ({ dates, setDates }: DateSetter) => {
   let dateNow = new Date();
-
+  const [, setExpand] = useExpand();
   const addDate = () => {
+    setExpand((prev) => ({ ...prev, datesExpand: true }));
     setDates((prev) => [
       ...prev,
       {

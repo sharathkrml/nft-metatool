@@ -4,10 +4,12 @@ import AttributesInputHead from "./AttributesInputHead";
 import { PropertiesSetter } from "../../types";
 import RemoveCircle from "../RemoveCircle";
 import { motion, AnimatePresence } from "framer-motion";
-const INPUTSTYLE =
-  "bg-[#202225] border-2 border-[#4A5357] px-2 text-[#EDEDEE] focus:border-[#205ADC] rounded-md focus:outline-none";
+import { useExpand } from "../../context/Expand";
+import { INPUTSTYLE } from "../../styles";
 const PropertiesInput = ({ properties, setProperties }: PropertiesSetter) => {
+  const [, setExpand] = useExpand();
   const addProperty = () => {
+    setExpand((prev) => ({ ...prev, propertiesExpand: true }));
     setProperties((prev) => [
       ...prev,
       {
