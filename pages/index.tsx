@@ -13,6 +13,7 @@ import { ABI, Address } from "../contract";
 import { convertedMedia, convertMetadata, downloadJson } from "../helpers";
 import Expand from "../context/Expand";
 import toast, { Toaster } from "react-hot-toast";
+import { motion } from "framer-motion";
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0" as Options);
 
 const Home = () => {
@@ -104,7 +105,7 @@ const Home = () => {
     if (!account) {
       web3modalRef.current = new Web3Modal();
     } else {
-      getNftId();
+      TransferEventListener();
     }
   }, [account]);
   const connectToWallet = async () => {
@@ -143,6 +144,14 @@ const Home = () => {
       | providers.JsonRpcSigner;
     return new Contract(Address, ABI, ProviderOrSigner);
   };
+  const TransferEventListener = async () => {
+    let MetaTool = await ContractProviderOrSigner();
+    MetaTool.on("Transfer", (from, to, tokenId) => {
+      if (to === account) {
+        setNftId(tokenId);
+      }
+    });
+  };
   const mintOrUpdate = async () => {
     try {
       let objectString = JSON.stringify(metadata);
@@ -168,21 +177,7 @@ const Home = () => {
         success: <b>{nftId == 0 ? "Minted!!" : "Updated!!"} </b>,
         error: <b>Transaction Failed.</b>,
       });
-      await getNftId();
-      let res = await fetch(
-        `https://testnets-api.opensea.io/api/v1/asset/${Address}/${nftId}/?force_update=true`
-      );
-      console.log(await res.json());
       console.log(txn);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const getNftId = async () => {
-    try {
-      let MetaTool = await ContractProviderOrSigner();
-      setNftId(await MetaTool.ownedNft(account));
     } catch (e) {
       console.log(e);
     }
@@ -250,9 +245,13 @@ const Home = () => {
               <DownloadIcon color="inherit" className="w-8 h-8" />
             </button>
             {account ? (
-              <div className="border-2 ml-2 h-10 text-sm flex item-center justify-center py-2 rounded-md border-[#205ADC] text-[#205ADC]">
+              <motion.div
+                initial={{ x: 100 }}
+                animate={{ x: 0 }}
+                className="border-2 ml-2 h-10 text-sm flex item-center justify-center py-2 rounded-md border-[#205ADC] text-[#205ADC]"
+              >
                 {account.substring(0, 10) + "..."}
-              </div>
+              </motion.div>
             ) : (
               <button
                 onClick={connectToWallet}
@@ -264,30 +263,42 @@ const Home = () => {
             )}
             {account && (
               <>
-                <button
+                <motion.button
+                  initial={{ x: 100 }}
+                  animate={{ x: 0 }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.8 }}
                   onClick={mintOrUpdate}
                   className="border-2 ml-2 h-10 text-sm rounded-md border-[#205ADC] text-[#205ADC] hover:scale-105 hover:border-[#205ADC] px-1 leading-3"
                 >
                   {nftId == 0 ? "Mint" : "Update"}
-                </button>
+                </motion.button>
                 {nftId != 0 && (
                   <>
-                    <button
+                    <motion.button
+                      initial={{ x: 100 }}
+                      animate={{ x: 0 }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.8 }}
                       onClick={loadPrevious}
                       className="border-2 ml-2 h-10 text-sm rounded-md border-[#205ADC] text-[#205ADC] hover:scale-105 hover:border-[#205ADC] px-1 leading-3"
                     >
                       Load
                       <br />
                       <span className="text-xs">Previous</span>
-                    </button>
-                    <a
+                    </motion.button>
+                    <motion.a
+                      initial={{ x: 100 }}
+                      animate={{ x: 0 }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.8 }}
                       href={`https://testnets.opensea.io/assets/rinkeby/${Address}/${nftId}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="border-2 ml-2 h-10 text-sm rounded-md border-[#205ADC] text-[#205ADC] hover:scale-105 hover:border-[#205ADC] px-1 py-3 leading-3"
                     >
                       Opensea🌊
-                    </a>
+                    </motion.a>
                   </>
                 )}
               </>
