@@ -25,7 +25,6 @@ const DatesInput = ({ dates, setDates }: DateSetter) => {
     setDates(newDates);
   };
   const editDateValue = (index: number, date: string) => {
-    console.log("selected ", date);
     let dateObj = new Date(date);
     let seconds = dateObj.getTime() / 1000;
     let newDates = [...dates];

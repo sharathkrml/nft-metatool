@@ -1,14 +1,14 @@
 import { InputMetaData } from "../types";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import PropertiesInput from "./Forms/PropertiesInput";
 import StatsInput from "./Forms/StatsInput";
 import LevelsInput from "./Forms/LevelsInput";
 import BoostsInput from "./Forms/BoostsInput";
 import DatesInput from "./Forms/DatesInput";
 import MediaInput from "./Forms/MediaInput";
-import { INPUTSTYLE } from "../styles";
-import { useExpand } from "../context/Expand";
+// import { INPUTSTYLE } from "../styles";
+const INPUTSTYLE =
+  "bg-[#202225] border-2 border-[#4A5357] px-2 text-[#EDEDEE] focus:border-[#205ADC] rounded-md focus:outline-none";
+
 const Form = ({
   basics,
   setBasics,

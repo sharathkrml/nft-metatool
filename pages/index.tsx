@@ -12,6 +12,7 @@ import Core from "web3modal";
 import { ABI, Address } from "../contract";
 import { convertedMedia, convertMetadata, downloadJson } from "../helpers";
 import Expand from "../context/Expand";
+import toast, { Toaster } from "react-hot-toast";
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0" as Options);
 
 const Home = () => {
@@ -145,14 +146,28 @@ const Home = () => {
   const mintOrUpdate = async () => {
     try {
       let objectString = JSON.stringify(metadata);
-      const added = await client.add(objectString, {
-        progress: (prog) => console.log(prog),
-      });
-      let url = `ipfs://${added.path}`;
+      let url;
+      await toast.promise(
+        client.add(objectString, {
+          progress: (prog) => console.log(prog),
+        }),
+        {
+          loading: "Uploading Metadata!",
+          success: (data) => {
+            url = `ipfs://${data.path}`;
+            return <b>Uploaded!! </b>;
+          },
+          error: <b>Upload failed</b>,
+        }
+      );
       let MetaTool = await ContractProviderOrSigner(true);
       let txn = await MetaTool.mintOrUpdate(url);
-      await txn.wait();
-
+      console.log(txn);
+      toast.promise(txn.wait(), {
+        loading: "Mining...",
+        success: <b>{nftId == 0 ? "Minted!!" : "Updated!!"} </b>,
+        error: <b>Transaction Failed.</b>,
+      });
       await getNftId();
       let res = await fetch(
         `https://testnets-api.opensea.io/api/v1/asset/${Address}/${nftId}/?force_update=true`
@@ -172,13 +187,21 @@ const Home = () => {
       console.log(e);
     }
   };
+  const getDataFromIPFS = async (id: number) => {
+    let MetaTool = await ContractProviderOrSigner();
+    let url = await MetaTool.tokenURI(nftId);
+    let uriConverted = convertedMedia(url);
+    let res = await fetch(uriConverted);
+    let metadata = await res.json();
+    return metadata;
+  };
   const loadPrevious = async () => {
     try {
-      let MetaTool = await ContractProviderOrSigner();
-      let uri = await MetaTool.tokenURI(nftId);
-      let uriConverted = convertedMedia(uri);
-      let res = await fetch(uriConverted);
-      let metadata = await res.json();
+      let metadata = await toast.promise(getDataFromIPFS(nftId), {
+        loading: "Getting Previous metadata",
+        success: <b>Got it!!!</b>,
+        error: <b>Could`&apos;`nt get the data.</b>,
+      });
       let {
         basics,
         boosts,
@@ -272,6 +295,9 @@ const Home = () => {
           </div>
         </div>
       </nav>
+      <div>
+        <Toaster />
+      </div>
       <Expand>
         <div className="grid pt-14 bg-[#202225] grid-cols-2 min-h-screen">
           <aside className="">
