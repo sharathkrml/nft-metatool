@@ -8,6 +8,7 @@ function BoostsWrapper({ boosts }: { boosts: BoostType[] | undefined }) {
         if (boost.display_type == "boost_number") {
           return (
             <Boost
+              key={i}
               display_type="boost_number"
               trait_type={boost.trait_type}
               value={boost.value}
@@ -19,6 +20,7 @@ function BoostsWrapper({ boosts }: { boosts: BoostType[] | undefined }) {
         if (boost.display_type == "boost_percentage") {
           return (
             <Boost
+              key={i}
               display_type="boost_percentage"
               trait_type={boost.trait_type}
               value={boost.value}

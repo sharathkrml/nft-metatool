@@ -11,6 +11,7 @@ import { providers, Contract } from "ethers";
 import Core from "web3modal";
 import { ABI, Address } from "../contract";
 import { convertedMedia, convertMetadata, downloadJson } from "../helpers";
+import Expand from "../context/Expand";
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0" as Options);
 
 const Home = () => {
@@ -271,37 +272,39 @@ const Home = () => {
           </div>
         </div>
       </nav>
-      <div className="grid pt-14 bg-[#202225] grid-cols-2 min-h-screen">
-        <aside className="">
-          <Form
-            basics={basics}
-            setBasics={setBasics}
-            properties={properties}
-            setProperties={setProperties}
-            stats={stats}
-            setStats={setStats}
-            levels={levels}
-            setLevels={setLevels}
-            boosts={boosts}
-            setBoosts={setBoosts}
-            dates={dates}
-            setDates={setDates}
-            media={media}
-            setMedia={setMedia}
-          />
-        </aside>
-        <section className=" text-white">
-          <Display
-            basics={basics}
-            properties={properties}
-            stats={stats}
-            levels={levels}
-            boosts={boosts}
-            dates={dates}
-            media={media}
-          />
-        </section>
-      </div>
+      <Expand>
+        <div className="grid pt-14 bg-[#202225] grid-cols-2 min-h-screen">
+          <aside className="">
+            <Form
+              basics={basics}
+              setBasics={setBasics}
+              properties={properties}
+              setProperties={setProperties}
+              stats={stats}
+              setStats={setStats}
+              levels={levels}
+              setLevels={setLevels}
+              boosts={boosts}
+              setBoosts={setBoosts}
+              dates={dates}
+              setDates={setDates}
+              media={media}
+              setMedia={setMedia}
+            />
+          </aside>
+          <section className=" text-white">
+            <Display
+              basics={basics}
+              properties={properties}
+              stats={stats}
+              levels={levels}
+              boosts={boosts}
+              dates={dates}
+              media={media}
+            />
+          </section>
+        </div>
+      </Expand>
     </div>
   );
 };

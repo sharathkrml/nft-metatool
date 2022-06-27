@@ -1,10 +1,11 @@
 import { ExpandMore, ExpandLess } from "@mui/icons-material";
+import { useExpand } from "../../context/Expand";
 
 import { AttributeWrapperProps } from "../../types";
 // gives that expandable structure
 function AttributeWrapper({
   expanded,
-  setExpanded,
+  setExpand,
   icon,
   name,
   children,
@@ -13,7 +14,7 @@ function AttributeWrapper({
   return (
     <>
       <div
-        onClick={() => setExpanded((prev) => !prev)}
+        onClick={() => setExpand()}
         className={`flex items-center justify-between p-4 border-[1px] border-black bg-[#262B2F] ${last &&
           !expanded &&
           "rounded-b-md"}`}

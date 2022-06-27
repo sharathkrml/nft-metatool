@@ -44,7 +44,7 @@ export type Date = {
 };
 export type AttributeWrapperProps = {
   expanded: boolean;
-  setExpanded: Dispatch<SetStateAction<boolean>>;
+  setExpand: () => void;
   icon: React.ReactNode;
   name: "Properties" | "Stats" | "Levels" | "Boosts" | "Dates" | "Details";
   children: React.ReactNode;
@@ -102,3 +102,14 @@ export type Progress = {
   total: number;
   progress: number;
 };
+
+
+export type Expand = {
+    propertiesExpand: boolean;
+    statsExpand: boolean;
+    levelsExpand: boolean;
+    boostsExpand: boolean;
+    datesExpand: boolean;
+    detailExpand: boolean;
+};
+export type ExpandContextType = [expand: Expand, setExpand: Dispatch<SetStateAction<Expand>>];

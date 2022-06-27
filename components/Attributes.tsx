@@ -7,7 +7,6 @@ import {
   Ballot,
 } from "@mui/icons-material";
 import AttributeWrapper from "./DisplayWrapper/AttributeWrapper";
-import { useState } from "react";
 import PropertiesWrapper from "./DisplayWrapper/PropertiesWrapper";
 import DetailsWrapper from "./DisplayWrapper/DetailsWrapper";
 import StatsWrapper from "./DisplayWrapper/StatsWrapper";
@@ -15,18 +14,22 @@ import LevelWrapper from "./DisplayWrapper/LevelWrapper";
 import BoostsWrapper from "./DisplayWrapper/BoostsWrapper";
 import DateWrapper from "./DisplayWrapper/DateWrapper";
 import { Attributes } from "../types";
+import { useExpand } from "../context/Expand";
 function Attributes({ attributes }: { attributes: Attributes }) {
-  const [propertiesExpand, setPropertiesExpand] = useState<boolean>(false);
-  const [statsExpand, setStatsExpand] = useState<boolean>(false);
-  const [levelsExpand, setLevelsExpand] = useState<boolean>(false);
-  const [boostsExpand, setBoostsExpand] = useState<boolean>(false);
-  const [datesExpand, setDatesExpand] = useState<boolean>(false);
-  const [detailExpand, setDetailsExpand] = useState<boolean>(true);
+  const [expand, setExpand] = useExpand();
+  const expandProperties = () => {
+    return;
+  };
   return (
     <div>
       <AttributeWrapper
-        expanded={propertiesExpand}
-        setExpanded={setPropertiesExpand}
+        expanded={expand.propertiesExpand}
+        setExpand={() =>
+          setExpand((prev) => ({
+            ...prev,
+            propertiesExpand: !prev.propertiesExpand,
+          }))
+        }
         icon={<Label />}
         name={"Properties"}
       >
@@ -34,8 +37,13 @@ function Attributes({ attributes }: { attributes: Attributes }) {
       </AttributeWrapper>
       {/* stats */}
       <AttributeWrapper
-        expanded={statsExpand}
-        setExpanded={setStatsExpand}
+        expanded={expand.statsExpand}
+        setExpand={() =>
+          setExpand((prev) => ({
+            ...prev,
+            statsExpand: !prev.statsExpand,
+          }))
+        }
         icon={<Equalizer />}
         name={"Stats"}
       >
@@ -43,8 +51,13 @@ function Attributes({ attributes }: { attributes: Attributes }) {
       </AttributeWrapper>
       {/* levels */}
       <AttributeWrapper
-        expanded={levelsExpand}
-        setExpanded={setLevelsExpand}
+        setExpand={() =>
+          setExpand((prev) => ({
+            ...prev,
+            levelsExpand: !prev.levelsExpand,
+          }))
+        }
+        expanded={expand.levelsExpand}
         icon={<Stars />}
         name={"Levels"}
       >
@@ -52,8 +65,13 @@ function Attributes({ attributes }: { attributes: Attributes }) {
       </AttributeWrapper>
       {/* Boosts */}
       <AttributeWrapper
-        expanded={boostsExpand}
-        setExpanded={setBoostsExpand}
+        expanded={expand.boostsExpand}
+        setExpand={() =>
+          setExpand((prev) => ({
+            ...prev,
+            boostsExpand: !prev.boostsExpand,
+          }))
+        }
         icon={<FlashOn />}
         name={"Boosts"}
       >
@@ -61,8 +79,13 @@ function Attributes({ attributes }: { attributes: Attributes }) {
       </AttributeWrapper>
       {/* Dates */}
       <AttributeWrapper
-        expanded={datesExpand}
-        setExpanded={setDatesExpand}
+        setExpand={() =>
+          setExpand((prev) => ({
+            ...prev,
+            datesExpand: !prev.datesExpand,
+          }))
+        }
+        expanded={expand.datesExpand}
         icon={<CalendarToday />}
         name={"Dates"}
       >
@@ -70,8 +93,13 @@ function Attributes({ attributes }: { attributes: Attributes }) {
       </AttributeWrapper>
       {/* Details */}
       <AttributeWrapper
-        expanded={detailExpand}
-        setExpanded={setDetailsExpand}
+        expanded={expand.detailExpand}
+        setExpand={() =>
+          setExpand((prev) => ({
+            ...prev,
+            detailExpand: !prev.detailExpand,
+          }))
+        }
         icon={<Ballot />}
         name={"Details"}
         last={true}

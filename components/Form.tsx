@@ -8,6 +8,7 @@ import BoostsInput from "./Forms/BoostsInput";
 import DatesInput from "./Forms/DatesInput";
 import MediaInput from "./Forms/MediaInput";
 import { INPUTSTYLE } from "../styles";
+import { useExpand } from "../context/Expand";
 const Form = ({
   basics,
   setBasics,
