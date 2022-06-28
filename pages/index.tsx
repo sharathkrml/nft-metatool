@@ -133,6 +133,9 @@ const Home = () => {
       const provider: providers.Web3Provider = new providers.Web3Provider(
         connection
       );
+      connection.on("accountsChanged", (accounts: any) => {
+        setAccount(accounts[0]);
+      });
       // If user is not connected to the Rinkeby network, let them know and throw an error
       const { chainId } = await provider.getNetwork();
       if (chainId !== 4) {
