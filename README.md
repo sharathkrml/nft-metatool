@@ -23,3 +23,7 @@
 👉 Load previously minted NFT metadata
 
 ![Load previously minted NFT metadata](https://ipfs.infura.io/ipfs/QmT8SitZAMpLRTosjeeJNPuY2n3nuYJwKLsuPahZmEyj8w)
+
+👉 Update previously minted NFT metadata
+
+![Update previously minted NFT metadata](https://ipfs.infura.io/ipfs/QmebR8b9H5ZCcyHz199VkeMqb9FsuStoai1K5Ajje72KD2)
